@@ -71,7 +71,7 @@ function Home() {
         };
         socket.send(JSON.stringify(login));
         socket.send(JSON.stringify(getchatmessroom));
-        // socket.send(JSON.stringify(getchatmesspeople));
+        socket.send(JSON.stringify(getchatmesspeople));
         // socket.send(JSON.stringify(check));
         // socket.send(JSON.stringify(logout));
     });

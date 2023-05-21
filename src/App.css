@@ -77,6 +77,7 @@
   outline: none;
 
 }
+
 input::placeholder{
   color: rgba(175,175,175,.9);
 }
@@ -87,6 +88,15 @@ input::placeholder{
   font-weight: bold;
   cursor: pointer;
   border: none;
+  border-radius: 5px;
+}
+.formWrapper form button:active{
+  background-color: #7b96ec;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: yellow solid 4px;
   border-radius: 5px;
 }
 .formWrapper p{
@@ -296,4 +306,14 @@ flex: 2;
   border-radius: 5px;
   cursor: pointer;
 }
-
+/* Login
+ */
+.error{
+  color: red;
+  font-size: 10px;
+}
+.block{
+  color: red;
+  font-size: 12px;
+  font-weight: bolder;
+}

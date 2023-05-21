@@ -4,6 +4,7 @@ import Register from "./page/register";
 import Login from "./page/login";
 import Home from "./page/home";
 import {findAllByDisplayValue} from "@testing-library/react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
 function App() {
@@ -14,15 +15,16 @@ function App() {
     socket.addEventListener('open', function (event) {
         // WebSocket đã kết nối thành công
         console.log('WebSocket connected');
-
+        // const username = localStorage.getItem("username");
+        // const password = localStorage.getItem("password");
         // Đăng nhâp
         var login = {
             action: "onchat",
             data: {
                 event: "LOGIN",
                 data: {
-                    user: "thanhthuy",
-                    pass: "12345"
+                    user: "",
+                    pass: ""
                 }
             }
         };
@@ -32,7 +34,7 @@ function App() {
             data: {
                 event: 'REGISTER',
                 data: {
-                    user: 'thanhthuy',
+                    user: 'thanhthuan',
                     pass: '12345'
                 }
             }
@@ -49,13 +51,13 @@ function App() {
           data: {
         event: "CHECK_USER",
             data: {
-          "user": "thanh"
+          "user": "thanhthuan"
         }
       }
         };
         // socket.send(JSON.stringify(registerData));
-        socket.send(JSON.stringify(check));
-        // socket.send(JSON.stringify(logout));
+        // socket.send(JSON.stringify(check));
+        // socket.send(JSON.stringify(login));
     });
 
     socket.addEventListener('message', function (event) {
@@ -80,7 +82,13 @@ function App() {
         console.error('WebSocket error:', event);
     });
     return (
-        <Home />
+        <Router>
+            <Routes>
+                <Route path='/home' element={<Home/>} />
+                <Route path='/login' element={<Login/>} />
+                <Route path='/register' element={<Register/>} />
+            </Routes>
+        </Router>
     );
 }
 

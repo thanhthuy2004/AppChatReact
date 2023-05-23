@@ -2,12 +2,12 @@ import React from 'react'
 import Navbar from "./Navbar";
 import Search from "./Search";
 import Chats from "./Chats";
-function Sidebar() {
+function Sidebar({webSocketAPI}) {
     return (
         <div className="sidebar">
-            <Navbar/>
-            <Search/>
-            <Chats/>
+            <Navbar webSocketAPI={webSocketAPI}/>
+            <Search webSocketAPI={webSocketAPI}/>
+            <Chats webSocketAPI={webSocketAPI}/>
         </div>
     );
 }

@@ -1,21 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
 import Register from "./page/register";
 import Login from "./page/login";
 import Home from "./page/home";
 import {findAllByDisplayValue} from "@testing-library/react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import WebSocketAPI from "./store/WebSocketAPI";
+import {AuthContext} from "./context/AuthContext";
 
 function App() {
+    const [webSocketAPI, setWebSocketAPI] = useState(null);
+    useEffect(() => {
+        const socket = new WebSocketAPI();
+        setWebSocketAPI(socket);
 
+        // return () => socket.close();
+    }, []);
     return (
-        <Router>
+        <BrowserRouter>
             <Routes>
-                <Route path='/home' element={<Home/>} />
-                <Route path='/login' element={<Login/>} />
-                <Route path='/register' element={<Register/>} />
+                <Route path="/">
+                    <Route index element={<Home webSocketAPI={webSocketAPI}/>} />
+                    <Route path='login' element={<Login webSocketAPI={webSocketAPI}/>} />
+                    <Route path='register' element={<Register webSocketAPI={webSocketAPI}/>} />
+                </Route>
             </Routes>
-        </Router>
+        </BrowserRouter>
     );
 }
 

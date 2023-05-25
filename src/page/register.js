@@ -2,8 +2,7 @@ import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
 import login from "./login";
 import WebSocketAPI from "../store/WebSocketAPI";
-function Register() {
-    const [webSocketAPI, setWebSocketAPI] = useState(null);
+function Register({ webSocketAPI }) {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -11,8 +10,6 @@ function Register() {
     const [registerError, setRegisterError] = useState(null);
     const handleRegister = (event) => {
         event.preventDefault(); // Ngăn form submit lại trang khác
-        const socket = new WebSocketAPI();
-        setWebSocketAPI(socket);
         if (password !== confirmpassword) {
             setRegisterError("Vui lòng xác nhận lại mật khẩu trước đó!");
             return;
@@ -29,9 +26,9 @@ function Register() {
                 }
             }
         };
-        socket.send(registerData);
+        webSocketAPI.send(registerData);
 
-        socket.on("message", function (event) {
+        webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
 
             if (message.status === "error") {

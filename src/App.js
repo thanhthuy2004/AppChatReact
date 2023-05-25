@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React from "react";
 import './App.css';
 import Register from "./page/register";
 import Login from "./page/login";
@@ -11,6 +12,7 @@ function App() {
     return (
         <Router>
             <Routes>
+                <Route path='/' element={<Home/>} />
                 <Route path='/home' element={<Home/>} />
                 <Route path='/login' element={<Login/>} />
                 <Route path='/register' element={<Register/>} />

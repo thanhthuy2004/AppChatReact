@@ -4,6 +4,7 @@ import Add from "../img/add.png";
 import More from "../img/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
+
 function Chat({webSocketAPI}) {
     return (
         <div className="chat">

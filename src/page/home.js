@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Chat from "../components/Chat";
-import WebSocketAPI from '../store/WebSocketAPI'
+import WebSocketAPI from '../store/WebSocketAPI';
+import "../App.css"
 function Home() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
     const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
@@ -43,7 +44,7 @@ function Home() {
 
     return (
         <div className="home">
-            <div className="container">
+            <div className="container1">
                 <Sidebar webSocketAPI={webSocketAPI}/>
                 <Chat webSocketAPI={webSocketAPI}/>
             </div>

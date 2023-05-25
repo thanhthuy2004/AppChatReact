@@ -1,7 +1,11 @@
 import React from 'react'
+import CreateRoom from "./CreateRoom";
+import "../App.css"
 function Search() {
     return (
+
         <div className="search">
+            <CreateRoom></CreateRoom>
             <div className="searchForm">
                 <input type="text" placeholder="Tìm kiếm"/>
             </div>

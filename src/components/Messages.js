@@ -1,5 +1,6 @@
 import React from 'react'
 import Message from "./Message";
+import "../App.css"
 function Messages() {
     return (
         <div className="messages">

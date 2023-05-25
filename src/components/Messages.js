@@ -23,8 +23,8 @@ function Messages({webSocketAPI, userName}) {
     }, [webSocketAPI]);
     return (
         <div className="messages">
-            {messageList.map((message, index) => (
-                <Message key={index} id={message.id} name={message.name} type={message.type} to={message.to} mes={message.mes}/>
+            {messageList.map((message) => (
+                <Message key={message.id} id={message.id} name={message.name} type={message.type} to={message.to} mes={message.mes}/>
             ))}
 
         </div>

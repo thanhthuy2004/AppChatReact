@@ -4,7 +4,7 @@ import Chat from "../components/Chat";
 import WebSocketAPI from '../store/WebSocketAPI'
 
 function Home({webSocketAPI, setWebSocketAPI}) {
-    // const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
+
     // const username = localStorage.getItem("username");
 
     // useEffect(() => {
@@ -26,22 +26,7 @@ function Home({webSocketAPI, setWebSocketAPI}) {
     //     socket.close();
     // };
     // }, [webSocketAPI]);
-    // const handleReLogin = () => {
-    //     // Gửi yêu cầu đăng nhập đến API appchat
-    //     const re_loginData = {
-    //         action: "onchat",
-    //         data: {
-    //             event: "RE_LOGIN",
-    //             data: {
-    //                 user: username,
-    //                 code: reLoginCode,
-    //             },
-    //         },
-    //     };
-    //     if(username !== ''){
-    //         // webSocketAPI.send(re_loginData);
-    //     }
-    // };
+
 
     const [userName, setUserName] = useState('');
 
@@ -52,6 +37,7 @@ function Home({webSocketAPI, setWebSocketAPI}) {
                     webSocketAPI={webSocketAPI}
                     setWebSocketAPI={setWebSocketAPI}
                     setUserName={setUserName}
+                    userName={userName}
                 />
                 <Chat
                     webSocketAPI={webSocketAPI}

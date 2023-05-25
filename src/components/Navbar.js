@@ -31,7 +31,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
                     console.log(message.mes);
                 } else {
                     navigate("/login");
-                    console.log("Logout sucessful");
+                    localStorage.clear();
                     const socket = new WebSocketAPI();
                     setWebSocketAPI(socket);
                 }

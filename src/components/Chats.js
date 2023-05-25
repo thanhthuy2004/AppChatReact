@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import UserChat from "../components/UserChat";
 
-function Chats({webSocketAPI, setUserName}) {
+function Chats({webSocketAPI, setUserName, userName}) {
     const [userList, setUserList] = useState([]);
     const handleUserChatClick = (name, type) => {
         setUserName(name);
@@ -54,9 +54,9 @@ function Chats({webSocketAPI, setUserName}) {
 
     return (
         <div className="chats">
-            {userList.map((user, index) => (
+            { userList.map((user, index) => (
           <div onClick={() => handleUserChatClick(user.name, user.type)}>
-              <UserChat key={index} name={user.name} type={user.type} actionTime={user.actionTime}/>
+              <UserChat key={index} id={index} name={user.name} type={user.type} actionTime={user.actionTime} userName={userName}/>
           </div>
 
             ))}

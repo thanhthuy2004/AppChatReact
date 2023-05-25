@@ -54,18 +54,21 @@ function Register({ webSocketAPI }) {
                         placeholder="Tên tài khoản vd: guest123"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
+                        required={true}
                     />
                     <input
                         type="password"
                         placeholder="Mật khẩu"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        required={true}
                     />
                     <input
                         type="password"
                         placeholder="Xác nhận mật khẩu"
                         value={confirmpassword}
                         onChange={(event) => setConfirmPassword(event.target.value)}
+                        required={true}
                     />
                     {registerError && <span className="error">{"*" + registerError}</span>}
                     <button type={"submit"}>Đăng ký</button>

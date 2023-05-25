@@ -13,9 +13,15 @@ function App() {
     useEffect(() => {
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
-
+        // setInterval(function() {
+        //     if (webSocketAPI.readyState === WebSocket.CLOSED) {
+        //         const socket = new WebSocketAPI();
+        //         setWebSocketAPI(socket);
+        //     }
+        // }, 1000);
         // return () => socket.close();
     }, []);
+
     return (
         <BrowserRouter>
             <Routes>

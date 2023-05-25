@@ -29,5 +29,6 @@ class WebSocketAPI {
     close() {
         this.socket.close();
     }
+
 }
 export default WebSocketAPI;

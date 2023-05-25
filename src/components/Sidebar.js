@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import Search from "./Search";
 import Chats from "./Chats";
 function Sidebar({webSocketAPI}) {
+
+
     return (
         <div className="sidebar">
             <Navbar webSocketAPI={webSocketAPI}/>

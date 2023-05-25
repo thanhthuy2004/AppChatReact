@@ -14,6 +14,7 @@ function Login({webSocketAPI}) {
 
     // useEffect(() => {
     //     if (!webSocketAPI) {
+    //
     //         return;
     //     }
     //
@@ -134,12 +135,14 @@ function Login({webSocketAPI}) {
                         placeholder="Tên tài khoản vd: guest123"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
+                        required={true}
                     />
                     <input
                         type="password"
                         placeholder="Mật khẩu"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        required={true}
                     />
                     {loginError && <span className="error">{"*" + loginError}</span>}
                     {isLocked ? (

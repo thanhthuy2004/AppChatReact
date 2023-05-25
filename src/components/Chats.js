@@ -1,5 +1,15 @@
 import React from 'react'
-function Chats() {
+function Chats({webSocketAPI}) {
+    const getUserList = {
+        action: "onchat",
+        data: {
+            event: "GET_USER_LIST"
+        }
+    }
+    webSocketAPI.send(getUserList);
+    webSocketAPI.on("message", function (event) {
+        console.log(JSON.parse(event.data));
+    })
     return (
         <div className="chats">
             <div className="userChat">

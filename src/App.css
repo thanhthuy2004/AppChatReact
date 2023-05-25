@@ -175,6 +175,10 @@ flex: 2;
 .search .searchForm input::placeholder{
   color: lightgray;
 }
+.sidebar .chats{
+  height: calc(100% - 90px);
+  overflow: scroll;
+}
 .userChat{
   padding: 10px;
   display: flex;

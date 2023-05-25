@@ -1,41 +1,37 @@
-import React from 'react'
+import React, {useState, useEffect} from "react";
+import UserChat from "../components/UserChat";
+
 function Chats({webSocketAPI}) {
+    const [userList, setUserList] = useState([]);
+
     const getUserList = {
         action: "onchat",
         data: {
             event: "GET_USER_LIST"
         }
     }
-    webSocketAPI.send(getUserList);
-    webSocketAPI.on("message", function (event) {
-        console.log(JSON.parse(event.data));
-    })
+
+    useEffect(() => {
+        if (!webSocketAPI) {
+            return;
+        }
+        webSocketAPI.send(getUserList);
+        webSocketAPI.on("message", function (event) {
+            const message = JSON.parse(event.data);
+            if(message.event === "GET_USER_LIST"){
+            const listUser = message.data;
+            setUserList(listUser);
+            }
+        })
+    }, [webSocketAPI]);
+
     return (
         <div className="chats">
-            <div className="userChat">
-                <img src="https://th.bing.com/th/id/R.6b8d9385853cc377b5b17617d0635101?rik=Euc8HcZ%2f20KSSg&pid=ImgRaw&r=0" alt=""/>
-                <div className="userChatInfo">
-                    <span>Thanh Thùy</span>
-                    <p>Hôm nay nắng đẹp</p>
-                </div>
-            </div>
-            <div className="userChat">
-                <img src="https://th.bing.com/th/id/R.6b8d9385853cc377b5b17617d0635101?rik=Euc8HcZ%2f20KSSg&pid=ImgRaw&r=0" alt=""/>
-                <div className="userChatInfo">
-                    <span>Thanh Thùy</span>
-                    <p>Hôm nay nắng đẹp</p>
-                </div>
-            </div>
-            <div className="userChat">
-                <img src="https://th.bing.com/th/id/R.6b8d9385853cc377b5b17617d0635101?rik=Euc8HcZ%2f20KSSg&pid=ImgRaw&r=0" alt=""/>
-                <div className="userChatInfo">
-                    <span>Thanh Thùy</span>
-                    <p>Hôm nay nắng đẹp</p>
-                </div>
-            </div>
-
+            {userList.map(user => (
+           <UserChat key={user.name} name={user.name} type={user.type} actionTime={user.actionTime}/>
+            ))}
         </div>
     );
 }
 
-export default Chats;
+    export default Chats;

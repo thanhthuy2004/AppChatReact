@@ -6,19 +6,15 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import WebSocketAPI from "./store/WebSocketAPI";
-import {AuthContext} from "./context/AuthContext";
+
+
+
 
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
     useEffect(() => {
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
-        // setInterval(function() {
-        //     if (webSocketAPI.readyState === WebSocket.CLOSED) {
-        //         const socket = new WebSocketAPI();
-        //         setWebSocketAPI(socket);
-        //     }
-        // }, 1000);
         // return () => socket.close();
     }, []);
 

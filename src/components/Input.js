@@ -1,7 +1,7 @@
 import React from 'react'
 import Img from '../img/img.png'
 import Attach from '../img/attach.png'
-function Input() {
+function Input({webSocketAPI}) {
     return (
         <div className="input">
             <input type="text" name="" id="" placeholder="Type something..."/>

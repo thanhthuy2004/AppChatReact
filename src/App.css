@@ -232,8 +232,11 @@ flex: 2;
 }
 .messages .message{
   display: flex;
-  gap: 20px;
+  gap: 7px;
 
+}
+.message{
+  position: relative;
 }
 .message .messageInfo{
   display: flex;
@@ -241,6 +244,7 @@ flex: 2;
   color: gray;
   font-weight: 300;
   margin-bottom: 20px;
+
 }
 .message .messageInfo img{
   width: 40px;
@@ -248,6 +252,20 @@ flex: 2;
   border-radius: 50%;
   object-fit: cover;
 }
+.message .timeMess{
+  position: absolute;
+  top: 62px;
+  left: 0;
+  font-size: 10px;
+  color: gray;
+}
+.messageInfoDetail span{
+  font-size: 13px;
+  font-weight: 600;
+  color: #2f2d52;
+  margin-right: 4px;
+}
+
 .message .messageContent{
   max-width: 80%;
   display: flex;
@@ -265,6 +283,7 @@ flex: 2;
 }
 .message.owner{
   flex-direction: row-reverse;
+  position: relative;
 }
 .message.owner .messageContent{
   align-items: flex-end;
@@ -274,6 +293,13 @@ flex: 2;
   background-color: #8da4f1;
   color: white;
   border-radius: 10px 0px 10px 10px;
+}
+.message.owner .timeMess{
+  position: absolute;
+  top: 62px;
+  left: 82%;
+  font-size: 10px;
+  color: gray;
 }
 .chat .input{
   height: 50px;

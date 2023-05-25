@@ -47,6 +47,7 @@ function Login({webSocketAPI}) {
 
     }, []);
     const handleLogin = (event) => {
+
         event.preventDefault(); // Ngăn form submit lại trang khác
 
         if (isLocked) {
@@ -62,13 +63,15 @@ function Login({webSocketAPI}) {
                 },
             },
         };
-         webSocketAPI.send(loginData);
+     webSocketAPI.send(loginData);
+
         localStorage.setItem("username",username);
     };
     useEffect(() => {
         if (!webSocketAPI) {
             return;
         }
+
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if(message.event === "LOGIN") {
@@ -96,7 +99,7 @@ function Login({webSocketAPI}) {
                             });
                         }, 1000);
                     }
-                } else {
+                } else if (message.status === "success"){
                     // Đăng nhập thành công, chuyển hướng đến trang home
                     console.log("Login sucessful");
 

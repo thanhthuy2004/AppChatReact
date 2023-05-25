@@ -22,8 +22,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/">
-                    <Route index element={<Home webSocketAPI={webSocketAPI}/>} />
-                    <Route path='login' element={<Login webSocketAPI={webSocketAPI}/>} />
+                    <Route index element={<Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI}/>} />
+                    <Route path='login' element={<Login webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI}/>} />
                     <Route path='register' element={<Register webSocketAPI={webSocketAPI}/>} />
                 </Route>
             </Routes>

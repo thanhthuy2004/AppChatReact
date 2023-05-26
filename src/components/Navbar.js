@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import WebSocketAPI from "../store/WebSocketAPI";
+import "../App.css"
+import { FiLogOut } from "react-icons/fi";
 
 function Navbar({webSocketAPI, setWebSocketAPI}) {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [logoutError, setLogoutError] = useState(null);
 
 
     const handleLogout = () => {
@@ -48,7 +48,9 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
                     alt=""
                 />
                 <span>{user}</span>
-                <button onClick={handleLogout}>Đăng xuất</button>
+                <button onClick={handleLogout}>
+                    <FiLogOut />
+                </button>
             </div>
         </div>
     );

@@ -1,7 +1,11 @@
 import React from 'react'
-function Search() {
+import CreateRoom from "./CreateRoom";
+import "../App.css"
+function Search({webSocketAPI}) {
     return (
+
         <div className="search">
+            <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
             <div className="searchForm">
                 <input type="text" placeholder="Tìm kiếm"/>
             </div>

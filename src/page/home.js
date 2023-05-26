@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Sidebar from "../components/Sidebar";
 import Chat from "../components/Chat";
+import "../App.css"
 import WebSocketAPI from '../store/WebSocketAPI'
 
 function Home({webSocketAPI, setWebSocketAPI}) {
@@ -29,19 +30,23 @@ function Home({webSocketAPI, setWebSocketAPI}) {
 
 
     const [userName, setUserName] = useState('');
+    const [userType, setUserType] = useState(0);
 
     return (
         <div className="home">
-            <div className="container">
+            <div className="container1">
                 <Sidebar
                     webSocketAPI={webSocketAPI}
                     setWebSocketAPI={setWebSocketAPI}
                     setUserName={setUserName}
                     userName={userName}
+                    setUserType={setUserType}
+                    userType={userType}
                 />
                 <Chat
                     webSocketAPI={webSocketAPI}
                     userName={userName}
+                    userType={userType}
                 />
             </div>
         </div>

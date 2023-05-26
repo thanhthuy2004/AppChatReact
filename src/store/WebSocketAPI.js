@@ -1,4 +1,3 @@
-
 class WebSocketAPI {
     isClose = false;
     constructor() {

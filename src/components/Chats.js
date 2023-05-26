@@ -3,34 +3,36 @@ import UserChat from "../components/UserChat";
 
 function Chats({webSocketAPI, setUserName, userName}) {
     const [userList, setUserList] = useState([]);
+    const [type, setType] = useState(0);
     const handleUserChatClick = (name, type) => {
         setUserName(name);
-        const getMessPeopleList = {
-            action: "onchat",
-            data: {
-                event: "GET_PEOPLE_CHAT_MES",
-                data: {
-                    name: name,
-                    page: 1
-                }
-            }
-        }
-        const getMessRoomList = {
-            action: "onchat",
-            data: {
-                event: "GET_ROOM_CHAT_MES",
-                data: {
-                    name: name,
-                    page: 1
-                }
-            }
-        }
-        if(type === 0) {
-            webSocketAPI.send(getMessPeopleList);
-        }else{
-            webSocketAPI.send(getMessRoomList);
-        }
+        setType(type);
     };
+    const getMessPeopleList = {
+        action: "onchat",
+        data: {
+            event: "GET_PEOPLE_CHAT_MES",
+            data: {
+                name: userName,
+                page: 1
+            }
+        }
+    }
+    const getMessRoomList = {
+        action: "onchat",
+        data: {
+            event: "GET_ROOM_CHAT_MES",
+            data: {
+                name: userName,
+                page: 1
+            }
+        }
+    }
+    if(type === 0) {
+        webSocketAPI.send(getMessPeopleList);
+    }else{
+        webSocketAPI.send(getMessRoomList);
+    }
     const getUserList = {
         action: "onchat",
         data: {
@@ -50,6 +52,7 @@ function Chats({webSocketAPI, setUserName, userName}) {
                 setUserList(listUser);
             }
         })
+
     }, [webSocketAPI]);
 
     return (

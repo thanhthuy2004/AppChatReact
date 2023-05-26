@@ -6,28 +6,42 @@ import {findAllByDisplayValue} from "@testing-library/react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import WebSocketAPI from "./store/WebSocketAPI";
-import {AuthContext} from "./context/AuthContext";
+
+
+
 
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
+    const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
     useEffect(() => {
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
-        // setInterval(function() {
-        //     if (webSocketAPI.readyState === WebSocket.CLOSED) {
-        //         const socket = new WebSocketAPI();
-        //         setWebSocketAPI(socket);
-        //     }
-        // }, 1000);
         // return () => socket.close();
     }, []);
 
+    window.addEventListener('load', () => {
+        const re_loginData = {
+            status: "success",
+            event: "RE_LOGIN",
+            data: {
+                RE_LOGIN_CODE: {reLoginCode}
+            }
+        };
+        webSocketAPI.send(re_loginData);
+        webSocketAPI.on("message", function (event) {
+            const message = JSON.parse(event.data);
+            if (message.event === "RE_LOGIN") {
+                const listUser = message.data;
+                // console.log(listUser);
+            }
+        })
+    });
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/">
-                    <Route index element={<Home webSocketAPI={webSocketAPI}/>} />
-                    <Route path='login' element={<Login webSocketAPI={webSocketAPI}/>} />
+                    <Route index element={<Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI}/>} />
+                    <Route path='login' element={<Login webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI}/>} />
                     <Route path='register' element={<Register webSocketAPI={webSocketAPI}/>} />
                 </Route>
             </Routes>

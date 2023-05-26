@@ -1,57 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Sidebar from "../components/Sidebar";
 import Chat from "../components/Chat";
 import "../App.css"
 import WebSocketAPI from '../store/WebSocketAPI'
-function Home({ webSocketAPI }) {
-    const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
-    const username = localStorage.getItem("username");
+
+function Home({webSocketAPI, setWebSocketAPI}) {
+
+    // const username = localStorage.getItem("username");
+
     // useEffect(() => {
     //     if (!webSocketAPI) {
     //         return;
     //     }
+    // webSocketAPI.on("message", function (event) {
+    //     console.log("WebSocket message received:", event.data);
+    //     const message = JSON.parse(event.data);
     //
-    // }, [webSocketAPI]);
-    // useEffect(() => {
-    //     if (!webSocketAPI) {
-    //         return;
+    //     // Kiểm tra xem có thuộc tính data.RE_LOGIN_CODE trong tin nhắn không
+    //     if (message.data && message.data.RE_LOGIN_CODE) {
+    //         // Lưu giá trị RE_LOGIN_CODE vào localStorage
+    //         localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
     //     }
-    //
-    //     webSocketAPI.on("message", function (event) {
-    //         console.log("WebSocket message received:", event.data);
-    //         const message = JSON.parse(event.data);
-    //
-    //         // Kiểm tra xem có thuộc tính data.RE_LOGIN_CODE trong tin nhắn không
-    //         if (message.data && message.data.RE_LOGIN_CODE) {
-    //             // Lưu giá trị RE_LOGIN_CODE vào localStorage
-    //             localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
-    //         }
-    //     });
-    //
-    //     // return () => {
-    //     //     socket.close();
-    //     // };
+    // });
+
+    // return () => {
+    //     socket.close();
+    // };
     // }, [webSocketAPI]);
-    const handleReLogin = () => {
-        // Gửi yêu cầu đăng nhập đến API appchat
-        const re_loginData = {
-            action: "onchat",
-            data: {
-                event: "RE_LOGIN",
-                data: {
-                    user: username,
-                    code: reLoginCode,
-                },
-            },
-        };
-        webSocketAPI.send(re_loginData);
-    };
+
+
+    const [userName, setUserName] = useState('');
 
     return (
         <div className="home">
+
             <div className="container1">
-                <Sidebar webSocketAPI={webSocketAPI}/>
-                <Chat webSocketAPI={webSocketAPI}/>
+                <Sidebar
+                    webSocketAPI={webSocketAPI}
+                    setWebSocketAPI={setWebSocketAPI}
+                    setUserName={setUserName}
+                    userName={userName}
+                />
+                <Chat
+                    webSocketAPI={webSocketAPI}
+                    userName={userName}
+                />
             </div>
         </div>
     );

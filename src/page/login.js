@@ -12,13 +12,6 @@ function Login({webSocketAPI}) {
     const [isLocked, setIsLocked] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
 
-    // useEffect(() => {
-    //     if (!webSocketAPI) {
-    //
-    //         return;
-    //     }
-    //
-    // }, [webSocketAPI]);
 
     useEffect(() => {
         // Lấy thời gian mà việc đăng nhập bị khóa từ localStorage
@@ -54,6 +47,7 @@ function Login({webSocketAPI}) {
 
     }, []);
     const handleLogin = (event) => {
+
         event.preventDefault(); // Ngăn form submit lại trang khác
 
         if (isLocked) {
@@ -69,61 +63,58 @@ function Login({webSocketAPI}) {
                 },
             },
         };
+     webSocketAPI.send(loginData);
 
-        webSocketAPI.send(loginData);
+        localStorage.setItem("username",username);
+    };
+    useEffect(() => {
+        if (!webSocketAPI) {
+            return;
+        }
+
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
-            if (message.status === "error") {
-                setLoginError("Tên tài khoản hoặc mật khẩu không đúng!");
-                // console.log(message.mes);
-                setFailedAttempts((prevAttempts) => prevAttempts + 1);
+            if(message.event === "LOGIN") {
+                if (message.status === "error") {
+                    setLoginError("Tên tài khoản hoặc mật khẩu không đúng!");
+                    // console.log(message.mes);
+                    setFailedAttempts((prevAttempts) => prevAttempts + 1);
 
-                if (failedAttempts >= 4) {
-                    setIsLocked(true);
-                    setTimeLeft(5);
-                    localStorage.setItem("lockTime", Date.now());
+                    if (failedAttempts >= 4) {
+                        setIsLocked(true);
+                        setTimeLeft(5);
+                        localStorage.setItem("lockTime", Date.now());
 
-                    const intervalId = setInterval(() => {
-                        setTimeLeft((prevTimeLeft) => {
-                            if (prevTimeLeft <= 1) {
-                                clearInterval(intervalId);
-                                setIsLocked(false);
-                                setFailedAttempts(0);
-                                localStorage.removeItem("lockTime");
-                                return 0;
-                            } else {
-                                return prevTimeLeft - 1;
-                            }
-                        });
-                    }, 1000);
+                        const intervalId = setInterval(() => {
+                            setTimeLeft((prevTimeLeft) => {
+                                if (prevTimeLeft <= 1) {
+                                    clearInterval(intervalId);
+                                    setIsLocked(false);
+                                    setFailedAttempts(0);
+                                    localStorage.removeItem("lockTime");
+                                    return 0;
+                                } else {
+                                    return prevTimeLeft - 1;
+                                }
+                            });
+                        }, 1000);
+                    }
+                } else if (message.status === "success"){
+                    // Đăng nhập thành công, chuyển hướng đến trang home
+                    console.log("Login sucessful");
+
+                    navigate("/");
                 }
-            } else {
-                // Đăng nhập thành công, chuyển hướng đến trang home
-                localStorage.setItem("username", username);
-                console.log("Login sucessful");
-                navigate("/");
-                // history.push({
-                //     pathname: '/home',
-                //     state: {webSocketAPI}
-                // });
-
-
-
             }
-        });
-        webSocketAPI.on("message", function (event) {
-            // Nhận một tin nhắn từ WebSocket
-            // console.log("WebSocket message received:", event.data);
 
-            // Chuyển đổi dữ liệu nhận được từ chuỗi JSON sang đối tượng JavaScript
-            const message = JSON.parse(event.data);
-            // Kiểm tra xem có thuộc tính data.RE_LOGIN_CODE trong tin nhắn không
             if (message.data && message.data.RE_LOGIN_CODE) {
                 // Lưu giá trị RE_LOGIN_CODE vào localStorage
+
                 localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
             }
         });
-    };
+
+    }, [webSocketAPI]);
     return (
         <div className="formContainer">
             <div className="formWrapper">

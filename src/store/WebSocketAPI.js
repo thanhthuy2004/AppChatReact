@@ -1,11 +1,14 @@
 class WebSocketAPI {
+    isClose = false;
     constructor() {
+
         const url = 'ws://140.238.54.136:8080/chat/chat';
         this.socket = new WebSocket(url);
         this.socket.onopen = () => {
             console.log('Connected to WebSocket API');
         };
         this.socket.onclose = (event) => {
+            this.isClose = true;
             console.log(`Disconnected from WebSocket API: ${event.code}`);
         };
         this.socket.onerror = (error) => {

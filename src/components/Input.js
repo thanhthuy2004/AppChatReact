@@ -1,10 +1,26 @@
-import React from 'react';
+
+import React, {useState} from 'react';
 import Img from '../img/img.png';
 import Attach from '../img/attach.png';
 import { FiSend } from "react-icons/fi";
 
-function Input({ webSocketAPI }) {
-    const sendChat = () => {
+function Input({ webSocketAPI, userName }) {
+    const [type, setType] = useState([]);
+    if (!webSocketAPI) {
+        return;
+    }
+    webSocketAPI.on("message", function (event) {
+        const message = JSON.parse(event.data);
+        if(message.event === "GET_PEOPLE_CHAT_MES"){
+            setType("people");
+        }
+        else if(message.event === "GET_ROOM_CHAT_MES"){
+            setType("room");
+        }
+    });
+
+
+const sendChat = () => {
         const mess = document.getElementById('mess').value;
 
         const data = {
@@ -12,21 +28,17 @@ function Input({ webSocketAPI }) {
             data: {
                 event: "SEND_CHAT",
                 data: {
-                    type: "people",
-                    to: "test2",
+                    type: type,
+                    to: userName,
                     mes: mess
                 }
             }
         };
-
         webSocketAPI.send(data);
-
-        webSocketAPI.on("message", function (event) {
-            console.log("WebSocket message received:", event.data);
-        });
 
         document.getElementById('mess').value = ''; // Clear the input field after sending chat
     };
+
 
     return (
         <div className="input">

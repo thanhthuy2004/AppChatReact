@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 
 function App() {
+
 // Tạo một đối tượng WebSocket
   const socket = new WebSocket('ws://140.238.54.136:8080/chat/chat');
 //
@@ -63,7 +64,6 @@ function App() {
     socket.addEventListener('message', function (event) {
         // Nhận một tin nhắn từ WebSocket
         console.log('WebSocket message received:', event.data);
-
         // Kiểm tra nếu nhận được phản hồi đăng xuất thành công, đóng kết nối với WebSocket
         // if (event.data === '{"action":"onchat","data":{"event":"LOGOUT_OK"}}') {
         //     console.log('Logged out successfully');

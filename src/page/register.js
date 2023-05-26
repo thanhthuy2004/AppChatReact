@@ -20,16 +20,16 @@ function Register() {
 
             // Gửi yêu cầu đăng nhập đến API appchat
             const registerData = {
-                    action: 'onchat',
+                action: 'onchat',
+                data: {
+                    event: 'REGISTER',
                     data: {
-                        event: 'REGISTER',
-                        data: {
-                            user: username,
-                            pass: password
-                        }
+                        user: username,
+                        pass: password
                     }
-                };
-                socket.send(JSON.stringify(registerData));
+                }
+            };
+            socket.send(JSON.stringify(registerData));
         });
 
         socket.addEventListener("message", function (event) {

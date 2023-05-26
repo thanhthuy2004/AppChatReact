@@ -17,7 +17,7 @@ function Chat({webSocketAPI}) {
                 </div>
             </div>
             <Messages/>
-            <Input/>
+            <Input webSocketAPI={webSocketAPI}/>
         </div>
     );
 }

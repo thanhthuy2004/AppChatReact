@@ -123,12 +123,12 @@ input::placeholder{
   overflow: hidden;
 }
 .container1 .sidebar{
-flex: 1;
+  flex: 1;
   border-right: 1px solid #3e3c61;
   background-color: #3e3c61;
 }
 .chat{
-flex: 2;
+  flex: 2;
 }
 .sidebar .navbar{
   display: flex;
@@ -147,7 +147,7 @@ flex: 2;
   gap: 10px;
 }
 .navbar .user img{
- background-color: #ddddf7;
+  background-color: #ddddf7;
   height: 24px;
   width: 24px;
   border-radius: 50%;
@@ -323,7 +323,7 @@ flex: 2;
 }
 .create-room{
   color: white;
-  margin-left: 230px;
+  margin-left: 270px;
 }
 .send-btn{
   font-size: 25px;

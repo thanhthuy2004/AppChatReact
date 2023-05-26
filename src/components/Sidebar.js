@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react'
 import Navbar from "./Navbar";
 import Search from "./Search";
 import Chats from "./Chats";
-
-
+import "../App.css"
 function Sidebar({webSocketAPI}) {
 
 
@@ -12,7 +11,6 @@ function Sidebar({webSocketAPI}) {
             <Navbar webSocketAPI={webSocketAPI}/>
             <Search webSocketAPI={webSocketAPI}/>
             <Chats webSocketAPI={webSocketAPI}/>
-
         </div>
     );
 }

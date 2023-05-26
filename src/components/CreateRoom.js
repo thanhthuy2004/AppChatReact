@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { AiOutlineUsergroupAdd} from "react-icons/ai";
 
 function MyhhVerticallyCenteredModal(props) {
     const { webSocketAPI } = props;
@@ -32,7 +32,7 @@ function MyhhVerticallyCenteredModal(props) {
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Tạo phòng
+                    Tạo phòng mới
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -58,7 +58,7 @@ function CreateRoom({ webSocketAPI }) {
 
     return (
         <>
-            <IoIosAddCircleOutline
+            <AiOutlineUsergroupAdd
                 className="create-room"
                 size={28}
                 onClick={() => setModalShow(true)}

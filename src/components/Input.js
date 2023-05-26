@@ -36,7 +36,8 @@ const sendChat = () => {
         };
         webSocketAPI.send(data);
 
-        document.getElementById('mess').value = ''; // Clear the input field after sending chat
+        document.getElementById('mess').value = '';
+
     };
 
 

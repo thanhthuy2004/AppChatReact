@@ -5,7 +5,7 @@ import More from "../img/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
 
-function Chat({webSocketAPI, userName}) {
+function Chat({webSocketAPI, userName, userType}) {
 
     return (
         <div className="chat">
@@ -18,9 +18,9 @@ function Chat({webSocketAPI, userName}) {
                 </div>
             </div>
 
-            <Messages webSocketAPI={webSocketAPI} userName={userName}/>
+            <Messages webSocketAPI={webSocketAPI} userName={userName} userType={userType}/>
 
-            <Input webSocketAPI={webSocketAPI } userName={userName}/>
+            <Input webSocketAPI={webSocketAPI } userName={userName} />
         </div>
     );
 }

@@ -30,20 +30,23 @@ function Home({webSocketAPI, setWebSocketAPI}) {
 
 
     const [userName, setUserName] = useState('');
+    const [userType, setUserType] = useState(0);
 
     return (
         <div className="home">
-
             <div className="container1">
                 <Sidebar
                     webSocketAPI={webSocketAPI}
                     setWebSocketAPI={setWebSocketAPI}
                     setUserName={setUserName}
                     userName={userName}
+                    setUserType={setUserType}
+                    userType={userType}
                 />
                 <Chat
                     webSocketAPI={webSocketAPI}
                     userName={userName}
+                    userType={userType}
                 />
             </div>
         </div>

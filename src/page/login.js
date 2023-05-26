@@ -2,7 +2,7 @@ import React, {useState, useEffect, useContext} from "react";
 import {useNavigate , Link} from "react-router-dom";
 import WebSocketAPI from "../store/WebSocketAPI";
 
-function Login({webSocketAPI}) {
+function Login({webSocketAPI, setIsLogin}) {
 
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
@@ -11,6 +11,7 @@ function Login({webSocketAPI}) {
     const [failedAttempts, setFailedAttempts] = useState(0);
     const [isLocked, setIsLocked] = useState(false);
     const [timeLeft, setTimeLeft] = useState(0);
+
 
 
     useEffect(() => {
@@ -47,9 +48,7 @@ function Login({webSocketAPI}) {
 
     }, []);
     const handleLogin = (event) => {
-
         event.preventDefault(); // Ngăn form submit lại trang khác
-
         if (isLocked) {
             return;
         }
@@ -102,14 +101,13 @@ function Login({webSocketAPI}) {
                 } else if (message.status === "success"){
                     // Đăng nhập thành công, chuyển hướng đến trang home
                     console.log("Login sucessful");
-
+                    setIsLogin(true);
                     navigate("/");
                 }
             }
 
             if (message.data && message.data.RE_LOGIN_CODE) {
                 // Lưu giá trị RE_LOGIN_CODE vào localStorage
-
                 localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
             }
         });

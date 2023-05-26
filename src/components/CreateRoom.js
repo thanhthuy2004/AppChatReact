@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { IoIosAddCircleOutline } from "react-icons/io";
+import webSocketAPI from "../store/WebSocketAPI";
 
 function MyhhVerticallyCenteredModal(props) {
     const { webSocketAPI } = props;
@@ -20,10 +21,7 @@ function MyhhVerticallyCenteredModal(props) {
         };
 
         webSocketAPI.send(data);
-
-        webSocketAPI.on("message", function (event) {
-            console.log("WebSocket message received:", event.data);
-        });
+        document.getElementById('room').value = '';
 
         props.onHide(); // Hide the modal after creating the room
     };
@@ -38,6 +36,7 @@ function MyhhVerticallyCenteredModal(props) {
             <Modal.Body>
                 <label className="mb-3">Tên phòng: </label>
                 <input
+                    id="room"
                     className="mb-3 col-12"
                     type="text"
                     placeholder="Nhập vào tên phòng..."
@@ -73,5 +72,4 @@ function CreateRoom({ webSocketAPI }) {
         </>
     );
 }
-
 export default CreateRoom;

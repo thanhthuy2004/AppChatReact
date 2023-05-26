@@ -2,16 +2,17 @@
 import React, {useState, useEffect} from "react";
 import UserChat from "../components/UserChat";
 
-function Chats({webSocketAPI, setUserName, userName}) {
+function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const handleUserChatClick = (name, type) => {
         setUserName(name);
+        setUserType(type);
         const getMessPeopleList = {
             action: "onchat",
             data: {
                 event: "GET_PEOPLE_CHAT_MES",
                 data: {
-                    name: name,
+                    name: userName,
                     page: 1
                 }
             }
@@ -21,17 +22,18 @@ function Chats({webSocketAPI, setUserName, userName}) {
             data: {
                 event: "GET_ROOM_CHAT_MES",
                 data: {
-                    name: name,
+                    name: userName,
                     page: 1
                 }
             }
         }
-        if(type === 0) {
+        if(userType === 0) {
             webSocketAPI.send(getMessPeopleList);
         }else{
             webSocketAPI.send(getMessRoomList);
         }
     };
+
 
     const getUserList = {
         action: "onchat",
@@ -39,12 +41,13 @@ function Chats({webSocketAPI, setUserName, userName}) {
             event: "GET_USER_LIST"
         }
     }
+    webSocketAPI.send(getUserList);
 
     useEffect(() => {
         if (!webSocketAPI) {
             return;
         }
-        webSocketAPI.send(getUserList);
+
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if (message.event === "GET_USER_LIST") {
@@ -52,6 +55,7 @@ function Chats({webSocketAPI, setUserName, userName}) {
                 setUserList(listUser);
             }
         })
+
     }, [webSocketAPI]);
 
     return (

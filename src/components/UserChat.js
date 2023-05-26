@@ -10,7 +10,6 @@ function UserChat({id, name, type, actionTime, userName}){
         <div className="userChatInfo">
             <span>{name}</span>
             <p>{actionTime}</p>
-
         </div>
     </div>
     );

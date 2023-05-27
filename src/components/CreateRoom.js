@@ -7,7 +7,7 @@ import { AiOutlineUsergroupAdd} from "react-icons/ai";
 
 function MyhhVerticallyCenteredModal(props) {
     const { websocketapi } = props;
-    const [roomName, setRoomName] = React.useState('');
+    const [roomName, setRoomName] = useState('');
 
     const createNewRoom = () => {
         const data = {
@@ -22,17 +22,15 @@ function MyhhVerticallyCenteredModal(props) {
         websocketapi.send(data);
         websocketapi.on("message", function (ev){
             const mess = JSON.parse(ev.data);
-            if(mess.mes == "Room Exist"){
-                console.log(mess);
-
-                alert("Tên phòng mà bạn vừa nhập đã tồn tại!");
-                // props.onHide();
-
+            if(mess.mes === "Room Exist"){
+                showError();
             }
-
+            if(mess.event === "CREATE_ROOM" && mess.status === "success"){
+                props.onHide();
+                setRoomName("");
+            }
         });
-        props.onHide();
-        setRoomName("");
+
     };
 
     return (
@@ -51,6 +49,7 @@ function MyhhVerticallyCenteredModal(props) {
                     value={roomName}
                     onChange={(e) => setRoomName(e.target.value)}
                 />
+                <span id="error" className="error"></span>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>Thoát</Button>
@@ -80,9 +79,11 @@ function CreateRoom({ websocketapi }) {
         </>
     );
 }
-function showError(show) {
-
-
+function showError() {
+    const errorElement = document.getElementById("error");
+    if (errorElement) {
+        errorElement.innerText = "* Tên phòng mà bạn vừa nhập đã tồn tại! *";
+    }
 }
 
 

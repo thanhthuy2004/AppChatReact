@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiOutlineUsergroupAdd} from "react-icons/ai";
 
+
 function MyhhVerticallyCenteredModal(props) {
-    const { webSocketAPI } = props;
+    const { websocketapi } = props;
     const [roomName, setRoomName] = React.useState('');
 
     const createNewRoom = () => {
@@ -18,14 +19,20 @@ function MyhhVerticallyCenteredModal(props) {
                 }
             }
         };
+        websocketapi.send(data);
+        websocketapi.on("message", function (ev){
+            const mess = JSON.parse(ev.data);
+            if(mess.mes == "Room Exist"){
+                console.log(mess);
 
-        webSocketAPI.send(data);
+                alert("Tên phòng mà bạn vừa nhập đã tồn tại!");
+                // props.onHide();
 
-        webSocketAPI.on("message", function (event) {
-            console.log("WebSocket message received:", event.data);
+            }
+
         });
-
-        props.onHide(); // Hide the modal after creating the room
+        props.onHide();
+        setRoomName("");
     };
 
     return (
@@ -53,7 +60,7 @@ function MyhhVerticallyCenteredModal(props) {
     );
 }
 
-function CreateRoom({ webSocketAPI }) {
+function CreateRoom({ websocketapi }) {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
@@ -66,12 +73,17 @@ function CreateRoom({ webSocketAPI }) {
             />
 
             <MyhhVerticallyCenteredModal
-                webSocketAPI={webSocketAPI}
+                websocketapi={websocketapi}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
         </>
     );
 }
+function showError(show) {
+
+
+}
+
 
 export default CreateRoom;

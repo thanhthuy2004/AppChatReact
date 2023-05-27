@@ -20,9 +20,9 @@ function Input({ webSocketAPI, userName }) {
     });
 
 
-const sendChat = () => {
+const sendChat = (event) => {
         const mess = document.getElementById('mess').value;
-
+    event.preventDefault();
         const data = {
             action: "onchat",
             data: {
@@ -40,19 +40,18 @@ const sendChat = () => {
 
     };
 
-
     return (
-        <div className="input">
-            <input type="text" name="" id="mess" placeholder="Type something..." />
+        <form className="input" onSubmit={sendChat}>
+            <input type="text" name="" id="mess" placeholder="Aa" required={true}/>
             <div className="send">
                 <img src={Attach} alt="" />
                 <input type="file" style={{ display: "none" }} id="file" />
                 <label htmlFor="file">
                     <img src={Img} alt="" />
                 </label>
-                <FiSend className="send-btn" onClick={sendChat} />
+               <button id="submitButton" className="send-btn" > <FiSend /> </button>
             </div>
-        </div>
+        </form>
     );
 }
 

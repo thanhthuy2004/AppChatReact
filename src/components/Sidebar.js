@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from "./Navbar";
-import Search from "./Search";
+// import Search from "./Search";
 import Chats from "./Chats";
 
 function Sidebar({webSocketAPI , setWebSocketAPI, setUserName, userName, setUserType, userType}) {

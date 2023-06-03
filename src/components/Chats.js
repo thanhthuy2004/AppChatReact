@@ -1,17 +1,43 @@
 
 import React, {useState, useEffect} from "react";
 import UserChat from "../components/UserChat";
+import CreateRoom from "./CreateRoom";
+import {FiSearch} from "react-icons/fi";
 
-function Chats({webSocketAPI, setUserName, userName}) {
+function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
+    const [newUserName, setNewUserName] = useState("");
+    function formatActionTime(actionTime) {
+        const date = new Date(actionTime);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    const handleAddUser = (event) => {
+        event.preventDefault();
+        const createdTime = new Date();
+        const newUser = {
+            name: newUserName,
+            type: 0,
+            actionTime: formatActionTime(createdTime.getTime())
+
+        };
+        setUserList(prevList => [newUser, ...prevList]);
+        setNewUserName('');
+    }
     const handleUserChatClick = (name, type) => {
         setUserName(name);
+        setUserType(type);
         const getMessPeopleList = {
             action: "onchat",
             data: {
                 event: "GET_PEOPLE_CHAT_MES",
                 data: {
-                    name: name,
+                    name: userName,
                     page: 1
                 }
             }
@@ -21,17 +47,18 @@ function Chats({webSocketAPI, setUserName, userName}) {
             data: {
                 event: "GET_ROOM_CHAT_MES",
                 data: {
-                    name: name,
+                    name: userName,
                     page: 1
                 }
             }
         }
-        if(type === 0) {
+        if(userType === 0) {
             webSocketAPI.send(getMessPeopleList);
         }else{
             webSocketAPI.send(getMessRoomList);
         }
     };
+
 
     const getUserList = {
         action: "onchat",
@@ -39,29 +66,58 @@ function Chats({webSocketAPI, setUserName, userName}) {
             event: "GET_USER_LIST"
         }
     }
+    webSocketAPI.send(getUserList);
 
     useEffect(() => {
         if (!webSocketAPI) {
             return;
         }
-        webSocketAPI.send(getUserList);
+
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
-                setUserList(listUser);
+                const createdTime = new Date();
+                const newUser = {
+                    name: newUserName,
+                    type: 0,
+                    actionTime: formatActionTime(createdTime.getTime())
+
+                };
+                listUser.unshift(newUser);
+                setUserList(prevList => {
+                    const newList = [...prevList];
+                    listUser.forEach(user => {
+                        if (!newList.some(u => u.name === user.name)) {
+                            newList.push(user);
+                        }
+                    });
+                    return newList;
+                });
             }
         })
+
     }, [webSocketAPI]);
 
     return (
+
         <div className="chats">
+            <div className="search">
+                <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
+                <div className="searchForm">
+                        <input type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
+                        <button className="btn-search" onClick={handleAddUser}>
+                            <FiSearch />
+                        </button>
+                </div>
+            </div>
             {userList.map((user, index) => (
                 <div onClick={() => handleUserChatClick(user.name, user.type)} key={index}>
                     <UserChat id={index} name={user.name} type={user.type} actionTime={user.actionTime} userName={userName} />
                 </div>
             ))}
         </div>
+
     );
 }
 

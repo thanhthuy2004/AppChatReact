@@ -20,7 +20,7 @@ function Message({id,name,type,to,mes}) {
         <div className={classOwn}>
             <div className="messageInfo">
                 <div className="messageInfoDetail">
-                    <span>{name}</span>
+                    <span className="username">{name}</span>
                     {/*<span></span>*/}
                 </div>
                 <img src={imgPersonal} alt=""/>

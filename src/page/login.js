@@ -2,57 +2,16 @@ import React, {useState, useEffect, useContext} from "react";
 import {useNavigate , Link} from "react-router-dom";
 import WebSocketAPI from "../store/WebSocketAPI";
 
-function Login({webSocketAPI}) {
+function Login({webSocketAPI, setIsLogin}) {
 
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(null);
-    const [failedAttempts, setFailedAttempts] = useState(0);
-    const [isLocked, setIsLocked] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(0);
 
 
-    useEffect(() => {
-        // Lấy thời gian mà việc đăng nhập bị khóa từ localStorage
-        const lockTime = localStorage.getItem("lockTime");
-
-        // Nếu có thời gian mà việc đăng nhập bị khóa
-        if (lockTime) {
-            // Tính thời gian còn lại cho đến khi mở khóa
-            const remainingTime = Math.round(5 - (Date.now() - lockTime) / 1000);
-
-            // Nếu thời gian còn lại lớn hơn 0
-            if (remainingTime > 0) {
-                // Đặt trạng thái isLocked thành true
-                setIsLocked(true);
-                setTimeLeft(remainingTime);
-
-                // Đặt hẹn giờ để mở khóa sau khi thời gian còn lại kết thúc
-                const intervalId = setInterval(() => {
-                    setTimeLeft((prevTimeLeft) => {
-                        if (prevTimeLeft <= 1) {
-                            clearInterval(intervalId);
-                            setIsLocked(false);
-                            setFailedAttempts(0);
-                            localStorage.removeItem("lockTime");
-                            return 0;
-                        } else {
-                            return prevTimeLeft - 1;
-                        }
-                    });
-                }, 1000);
-            }
-        }
-
-    }, []);
     const handleLogin = (event) => {
-
         event.preventDefault(); // Ngăn form submit lại trang khác
-
-        if (isLocked) {
-            return;
-        }
         const loginData = {
             action: "onchat",
             data: {
@@ -63,7 +22,7 @@ function Login({webSocketAPI}) {
                 },
             },
         };
-     webSocketAPI.send(loginData);
+        webSocketAPI.send(loginData);
 
         localStorage.setItem("username",username);
     };
@@ -77,39 +36,17 @@ function Login({webSocketAPI}) {
             if(message.event === "LOGIN") {
                 if (message.status === "error") {
                     setLoginError("Tên tài khoản hoặc mật khẩu không đúng!");
-                    // console.log(message.mes);
-                    setFailedAttempts((prevAttempts) => prevAttempts + 1);
-
-                    if (failedAttempts >= 4) {
-                        setIsLocked(true);
-                        setTimeLeft(5);
-                        localStorage.setItem("lockTime", Date.now());
-
-                        const intervalId = setInterval(() => {
-                            setTimeLeft((prevTimeLeft) => {
-                                if (prevTimeLeft <= 1) {
-                                    clearInterval(intervalId);
-                                    setIsLocked(false);
-                                    setFailedAttempts(0);
-                                    localStorage.removeItem("lockTime");
-                                    return 0;
-                                } else {
-                                    return prevTimeLeft - 1;
-                                }
-                            });
-                        }, 1000);
-                    }
+                    console.log(message.mes);
                 } else if (message.status === "success"){
                     // Đăng nhập thành công, chuyển hướng đến trang home
                     console.log("Login sucessful");
-
+                    setIsLogin(true);
                     navigate("/");
                 }
             }
 
             if (message.data && message.data.RE_LOGIN_CODE) {
                 // Lưu giá trị RE_LOGIN_CODE vào localStorage
-
                 localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
             }
         });
@@ -136,14 +73,7 @@ function Login({webSocketAPI}) {
                         required={true}
                     />
                     {loginError && <span className="error">{"*" + loginError}</span>}
-                    {isLocked ? (
-                        <div>
-                            <p><span className="block">Đăng nhập bị khóa do nhập sai quá nhiều lần.</span></p>
-                            <p>Thời gian còn lại: {timeLeft} giây</p>
-                        </div>
-                    ) : (
                         <button>Đăng nhập</button>
-                    )}
                 </form>
 
                 <p>

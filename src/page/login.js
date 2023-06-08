@@ -30,7 +30,6 @@ function Login({webSocketAPI, setIsLogin}) {
         if (!webSocketAPI) {
             return;
         }
-
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if(message.event === "LOGIN") {

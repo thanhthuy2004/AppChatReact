@@ -7,6 +7,7 @@ import {FiSearch} from "react-icons/fi";
 function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
+    const [error, setError] = useState(null);
     function formatActionTime(actionTime) {
         const date = new Date(actionTime);
         const year = date.getFullYear();
@@ -26,6 +27,11 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             actionTime: formatActionTime(createdTime.getTime())
 
         };
+        const existingUserIndex = userList.findIndex(user => user.name === newUserName);
+        if (existingUserIndex !== -1) {
+            // Nếu đã tồn tại, xóa username cũ
+            userList.splice(existingUserIndex, 1);
+        }
         setUserList(prevList => [newUser, ...prevList]);
         setNewUserName('');
     }
@@ -78,13 +84,21 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
                 const createdTime = new Date();
-                const newUser = {
-                    name: newUserName,
-                    type: 0,
-                    actionTime: formatActionTime(createdTime.getTime())
+                        const newUser = {
+                         name: newUserName,
+                         type: 0,
+                         actionTime: formatActionTime(createdTime.getTime())
+                        };
+                // Kiểm tra xem newUserName đã tồn tại trong danh sách hay chưa
+                const existingUserIndex = listUser.findIndex(user => user.name === newUserName);
+                if (existingUserIndex !== -1) {
+                    // Nếu đã tồn tại, xóa username cũ
+                    listUser.splice(existingUserIndex, 1);
+                }
 
-                };
+                // Đưa newUserName lên đầu danh sách
                 listUser.unshift(newUser);
+
                 setUserList(prevList => {
                     const newList = [...prevList];
                     listUser.forEach(user => {
@@ -97,6 +111,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             }
         })
 
+
     }, [webSocketAPI]);
 
     return (
@@ -105,10 +120,10 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             <div className="search">
                 <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
                 <div className="searchForm">
-                        <input type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
-                        <button className="btn-search" onClick={handleAddUser}>
-                            <FiSearch />
-                        </button>
+                    <input type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
+                    <button className="btn-search" onClick={handleAddUser}>
+                        <FiSearch />
+                    </button>
                 </div>
             </div>
             {userList.map((user, index) => (
@@ -121,4 +136,4 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     );
 }
 
-    export default Chats;
+export default Chats;

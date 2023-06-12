@@ -2,12 +2,12 @@
 import React, {useState, useEffect} from "react";
 import UserChat from "../components/UserChat";
 import CreateRoom from "./CreateRoom";
-import {FiSearch} from "react-icons/fi";
-
+import { FiSearch} from "react-icons/fi";
+import {IoIosPeople} from "react-icons/io";
 function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
-    const [error, setError] = useState(null);
+    const [typeUser, setTypeUser] = useState(0);
     function formatActionTime(actionTime) {
         const date = new Date(actionTime);
         const year = date.getFullYear();
@@ -23,17 +23,24 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         const createdTime = new Date();
         const newUser = {
             name: newUserName,
-            type: 0,
+            type: typeUser,
             actionTime: formatActionTime(createdTime.getTime())
 
         };
-        const existingUserIndex = userList.findIndex(user => user.name === newUserName);
+        const existingUserIndex = userList.findIndex(user => user.name === newUserName && user.type === newUser.type);
         if (existingUserIndex !== -1) {
-            // Nếu đã tồn tại, xóa username cũ
+            // Nếu đã tồn tại và cùng type, xóa username cũ
             userList.splice(existingUserIndex, 1);
         }
         setUserList(prevList => [newUser, ...prevList]);
         setNewUserName('');
+    }
+    const handleCheckboxChange = (event) => {
+        if (event.target.checked) {
+            setTypeUser(1);
+        } else {
+            setTypeUser(0);
+        }
     }
     const handleUserChatClick = (name, type) => {
         setUserName(name);
@@ -84,15 +91,15 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
                 const createdTime = new Date();
-                        const newUser = {
-                         name: newUserName,
-                         type: 0,
-                         actionTime: formatActionTime(createdTime.getTime())
-                        };
+                const newUser = {
+                    name: newUserName,
+                    type: typeUser,
+                    actionTime: formatActionTime(createdTime.getTime())
+                };
                 // Kiểm tra xem newUserName đã tồn tại trong danh sách hay chưa
-                const existingUserIndex = listUser.findIndex(user => user.name === newUserName);
+                const existingUserIndex = listUser.findIndex(user => user.name === newUserName && user.type === newUser.type);
                 if (existingUserIndex !== -1) {
-                    // Nếu đã tồn tại, xóa username cũ
+                    // Nếu đã tồn tại và cùng type, xóa username cũ
                     listUser.splice(existingUserIndex, 1);
                 }
 
@@ -121,8 +128,9 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
                 <div className="searchForm">
                     <input type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
+                    <input type="checkbox" onChange={handleCheckboxChange}/>   <IoIosPeople className="roomSearch"/>
                     <button className="btn-search" onClick={handleAddUser}>
-                        <FiSearch />
+                        <FiSearch className="userSearch"/>
                     </button>
                 </div>
             </div>

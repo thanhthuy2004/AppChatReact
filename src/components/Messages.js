@@ -41,10 +41,13 @@ function Messages({webSocketAPI, userName, userType}) {
                 setMessageList(listMessagePeople);
                 // console.log(listMessagePeople.slice().reverse());
             }
-            else if(message.event === "GET_ROOM_CHAT_MES"){
-                const listMessageRoom = message.data.chatData;
+            else if (message.event === "GET_ROOM_CHAT_MES") {
+                let listMessageRoom = [];
+                if (message.data && message.data.chatData) {
+                    listMessageRoom = message.data.chatData;
+                }
+                console.log(message.data);
                 setMessageList(listMessageRoom);
-                // console.log(listMessageRoom);
             }
         })
     }, [webSocketAPI]);

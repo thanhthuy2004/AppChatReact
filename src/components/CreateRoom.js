@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { IoIosAddCircleOutline } from "react-icons/io";
-import webSocketAPI from "../store/WebSocketAPI";
+import { AiOutlineUsergroupAdd} from "react-icons/ai";
+
 
 function MyhhVerticallyCenteredModal(props) {
-    const { webSocketAPI } = props;
-    const [roomName, setRoomName] = React.useState('');
+    const { websocketapi } = props;
+    const [roomName, setRoomName] = useState('');
 
     const createNewRoom = () => {
         const data = {
@@ -19,30 +19,37 @@ function MyhhVerticallyCenteredModal(props) {
                 }
             }
         };
+        websocketapi.send(data);
+        websocketapi.on("message", function (ev){
+            const mess = JSON.parse(ev.data);
+            if(mess.mes === "Room Exist"){
+                showError();
+            }
+            if(mess.event === "CREATE_ROOM" && mess.status === "success"){
+                props.onHide();
+                setRoomName("");
+            }
+        });
 
-        webSocketAPI.send(data);
-        document.getElementById('room').value = '';
-
-        props.onHide(); // Hide the modal after creating the room
     };
 
     return (
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Tạo phòng
+                    Tạo phòng mới
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <label className="mb-3">Tên phòng: </label>
                 <input
-                    id="room"
                     className="mb-3 col-12"
                     type="text"
                     placeholder="Nhập vào tên phòng..."
                     value={roomName}
                     onChange={(e) => setRoomName(e.target.value)}
                 />
+                <span id="error" className="error"></span>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>Thoát</Button>
@@ -52,12 +59,12 @@ function MyhhVerticallyCenteredModal(props) {
     );
 }
 
-function CreateRoom({ webSocketAPI }) {
+function CreateRoom({ websocketapi }) {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
         <>
-            <IoIosAddCircleOutline
+            <AiOutlineUsergroupAdd
                 className="create-room"
                 size={28}
                 onClick={() => setModalShow(true)}
@@ -65,11 +72,19 @@ function CreateRoom({ webSocketAPI }) {
             />
 
             <MyhhVerticallyCenteredModal
-                webSocketAPI={webSocketAPI}
+                websocketapi={websocketapi}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
         </>
     );
 }
+function showError() {
+    const errorElement = document.getElementById("error");
+    if (errorElement) {
+        errorElement.innerText = "* Tên phòng mà bạn vừa nhập đã tồn tại! *";
+    }
+}
+
+
 export default CreateRoom;

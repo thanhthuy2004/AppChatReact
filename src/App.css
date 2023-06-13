@@ -358,7 +358,7 @@ input::placeholder{
  */
 .error{
   color: red;
-  font-size: 10px;
+  font-size: 14px;
 }
 .block{
   color: red;
@@ -366,7 +366,11 @@ input::placeholder{
   font-weight: bolder;
 }
 .create-room{
+  margin-top: 10px;
   color: white;
-  margin-left: 270px;
+  /*margin-left: 270px;*/
+}
+.search{
+  display: flex;
 }
 

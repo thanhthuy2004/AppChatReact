@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import {Link, useNavigate} from "react-router-dom";
-import login from "./login";
-import WebSocketAPI from "../store/WebSocketAPI";
 function Register({ webSocketAPI }) {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");

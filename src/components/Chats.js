@@ -3,12 +3,10 @@ import React, {useState, useEffect} from "react";
 import UserChat from "../components/UserChat";
 import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
-import {IoIosPeople} from "react-icons/io";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
-
+import JoinRoom from "./JoinRoom";
 function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
+    const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
     const [typeUser, setTypeUser] = useState(0);
     function formatActionTime(actionTime) {
@@ -34,6 +32,11 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         if (existingUserIndex !== -1) {
             // Nếu đã tồn tại và cùng type, xóa username cũ
             userList.splice(existingUserIndex, 1);
+        }
+        if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
+            // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
+            alert("Bạn chưa tham gia hoặc phòng này chưa được tạo!");
+            return;
         }
         setUserList(prevList => [newUser, ...prevList]);
         setNewUserName('');
@@ -108,7 +111,13 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
 
                 // Đưa newUserName lên đầu danh sách
                 listUser.unshift(newUser);
-
+                const listRoom = listUser.filter(item => item.type === 1);
+                setRoomList(listRoom);
+                if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
+                    // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
+                    alert("Bạn chưa tham gia hoặc phòng này chưa được tạo!");
+                    return;
+                }
                 setUserList(prevList => {
                     const newList = [...prevList];
                     listUser.forEach(user => {
@@ -123,16 +132,17 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
 
 
     }, [webSocketAPI]);
-
     return (
 
         <div className="chats">
             <div className="search">
-                <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
-                <div className="searchForm">
-                    <input type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
-                    <input type="checkbox" onChange={handleCheckboxChange}/>   <IoIosPeople className="roomSearch"/>
-                    <button className="btn-search" onClick={handleAddUser}>
+                <div className="col-1">
+                    <CreateRoom websocketapi={webSocketAPI}/>
+                </div>
+                <div className="searchForm col-11">
+                    <input className="col-8" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
+                    <input type="checkbox" onChange={handleCheckboxChange} title="Tìm kiếm phòng"/>   <JoinRoom websocketapi={webSocketAPI} title="Tham gia phòng"/>
+                    <button className="btn-search" onClick={handleAddUser} title="Tìm kiếm">
                         <FiSearch className="userSearch"/>
                     </button>
                 </div>

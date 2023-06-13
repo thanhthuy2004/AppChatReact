@@ -24,6 +24,7 @@ const sendChat = (event) => {
         const mess = document.getElementById('mess').value;
         // const messUtf8 = encodeURI(mess);
     event.preventDefault();
+
         const data = {
             action: "onchat",
             data: {

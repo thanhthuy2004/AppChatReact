@@ -39,14 +39,12 @@ function Messages({webSocketAPI, userName, userType}) {
             if(message.event === "GET_PEOPLE_CHAT_MES"){
                 const listMessagePeople = message.data;
                 setMessageList(listMessagePeople);
-
                 // console.log(listMessagePeople.slice().reverse());
             }
             else if (message.event === "GET_ROOM_CHAT_MES") {
                 let listMessageRoom = [];
                 if (message.data && message.data.chatData) {
                     listMessageRoom = message.data.chatData;
-
                 }
                 setMessageList(listMessageRoom);
             }
@@ -57,10 +55,8 @@ function Messages({webSocketAPI, userName, userType}) {
         <div className="messages">
             {messageList.map((message) => (
                 <Message key={message.id}
-                         id={message.id}
-                         name={message.name}
-                         type={message.type}
-                         to={message.to}
+                         id={message.id} name={message.name}
+                         type={message.type} to={message.to}
                          mes={message.mes}
                          // mes={decodeURI(message.mes)}
                 />
@@ -69,5 +65,6 @@ function Messages({webSocketAPI, userName, userType}) {
         </div>
     );
 }
+
 
 export default Messages;

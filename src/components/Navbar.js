@@ -10,7 +10,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
 
 
     const handleLogout = () => {
-        // Gửi yêu cầu đăng nhập đến API appchat
+        // Gửi yêu cầu đăng xuất đến API appchat
         const logout = {
             action: 'onchat',
             data: {
@@ -48,7 +48,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
                     alt=""
                 />
                 <span>{user}</span>
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} title="Đăng xuất">
                     <FiLogOut />
                 </button>
             </div>

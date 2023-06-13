@@ -1,33 +1,31 @@
 import React, {useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { AiOutlineUsergroupAdd} from "react-icons/ai";
+import Button from "react-bootstrap/Button";
+import {IoIosPeople} from "react-icons/io";
 
-
-function MyhhVerticallyCenteredModal(props) {
+function ModalJoinRoom(props) {
     const { websocketapi } = props;
-    const [roomName, setRoomName] = useState('');
+    const [name, setName] = useState('');
 
     const createNewRoom = () => {
-        const data = {
+        const JoinRoom = {
             action: "onchat",
             data: {
-                event: "CREATE_ROOM",
+                event: "JOIN_ROOM",
                 data: {
-                    name: roomName
+                    name: name
                 }
             }
         };
-        websocketapi.send(data);
-        websocketapi.on("message", function (ev){
-            const mess = JSON.parse(ev.data);
-            if(mess.mes === "Room Exist"){
+        websocketapi.send(JoinRoom);
+        websocketapi.on("message", function (event){
+            const mess = JSON.parse(event.data);
+            if(mess.status === "error"){
                 showError();
             }
-            if(mess.event === "CREATE_ROOM" && mess.status === "success"){
+            if(mess.event === "JOIN_ROOM" && mess.status === "success"){
                 props.onHide();
-                setRoomName("");
+                setName("");
             }
         });
 
@@ -37,7 +35,7 @@ function MyhhVerticallyCenteredModal(props) {
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Tạo phòng mới
+                    Tham gia phòng
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -46,8 +44,8 @@ function MyhhVerticallyCenteredModal(props) {
                     className="mb-3 col-12"
                     type="text"
                     placeholder="Nhập vào tên phòng..."
-                    value={roomName}
-                    onChange={(e) => setRoomName(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 />
                 <span id="error" className="error"></span>
             </Modal.Body>
@@ -59,19 +57,19 @@ function MyhhVerticallyCenteredModal(props) {
     );
 }
 
-function CreateRoom({ websocketapi }) {
+function JoinRoom({ websocketapi, title }) {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
         <>
-            <AiOutlineUsergroupAdd
-                className="create-room"
+            <IoIosPeople title = {title}
+                className="roomSearch"
                 size={28}
                 onClick={() => setModalShow(true)}
                 style={{ cursor: 'pointer' }}
             />
 
-            <MyhhVerticallyCenteredModal
+            <ModalJoinRoom
                 websocketapi={websocketapi}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
@@ -82,9 +80,9 @@ function CreateRoom({ websocketapi }) {
 function showError() {
     const errorElement = document.getElementById("error");
     if (errorElement) {
-        errorElement.innerText = "* Tên phòng mà bạn vừa nhập đã tồn tại! *";
+        errorElement.innerText = "Phòng này chưa được tạo!";
     }
 }
 
 
-export default CreateRoom;
+export default JoinRoom;

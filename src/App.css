@@ -358,7 +358,7 @@ input::placeholder{
  */
 .error{
   color: red;
-  font-size: 10px;
+  font-size: 14px;
 }
 .block{
   color: red;
@@ -366,27 +366,33 @@ input::placeholder{
   font-weight: bolder;
 }
 .create-room{
+  margin-top: 10px;
   color: white;
-  margin-left: 270px;
+  /*margin-left: 270px;*/
+}
+.search{
+  display: flex;
 }
 .btn-search{
   background-color: #5d5b8d;
   border-radius: 5px;
   color: white;
   float: right;
+  margin-top: 5px;
   margin-right: 5px;
-  margin-top: 10px;
 }
 FiSearch{
   margin: auto;
 }
 input[type="checkbox"] {
-  transform: scale(1.8);
+  transform: scale(1.4);
+  border: none;
+  cursor: pointer;
 }
 .roomSearch{
   color: white;
-  width: 35px;
-  height: 25px;
+  width: 30px;
+  height: 20px;
   margin-bottom: 2px;
 }
 .userSearch{

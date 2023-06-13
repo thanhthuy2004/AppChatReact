@@ -140,9 +140,9 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                     <CreateRoom websocketapi={webSocketAPI}/>
                 </div>
                 <div className="searchForm col-11">
-                    <input className="col-7" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
+                    <input className="col-8" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
                     <input type="checkbox" onChange={handleCheckboxChange} title="Tìm kiếm phòng"/>   <JoinRoom websocketapi={webSocketAPI} title="Tham gia phòng"/>
-                    <button className="btn-search" onClick={handleAddUser}>
+                    <button className="btn-search" onClick={handleAddUser} title="Tìm kiếm">
                         <FiSearch className="userSearch"/>
                     </button>
                 </div>

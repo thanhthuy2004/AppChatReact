@@ -46,7 +46,6 @@ function Messages({webSocketAPI, userName, userType}) {
                 if (message.data && message.data.chatData) {
                     listMessageRoom = message.data.chatData;
                 }
-                console.log(message.data);
                 setMessageList(listMessageRoom);
             }
         })

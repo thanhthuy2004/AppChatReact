@@ -48,7 +48,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
                     alt=""
                 />
                 <span>{user}</span>
-                <button onClick={handleLogout}>
+                <button onClick={handleLogout} title="Đăng xuất">
                     <FiLogOut />
                 </button>
             </div>

@@ -7,7 +7,7 @@ function ModalJoinRoom(props) {
     const { websocketapi } = props;
     const [name, setName] = useState('');
 
-    const createNewRoom = () => {
+    const joinRoom = () => {
         const JoinRoom = {
             action: "onchat",
             data: {
@@ -25,6 +25,7 @@ function ModalJoinRoom(props) {
             }
             if(mess.event === "JOIN_ROOM" && mess.status === "success"){
                 props.onHide();
+                alert("Tham gia thành công, hãy tìm kiếm ngay nào!")
                 setName("");
             }
         });
@@ -51,7 +52,7 @@ function ModalJoinRoom(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>Thoát</Button>
-                <Button variant="primary" onClick={createNewRoom}>Xong</Button>
+                <Button onClick={joinRoom}>Xong</Button>
             </Modal.Footer>
         </Modal>
     );

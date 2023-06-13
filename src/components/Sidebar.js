@@ -9,7 +9,7 @@ function Sidebar({webSocketAPI , setWebSocketAPI, setUserName, userName, setUser
     return (
         <div className="sidebar">
             <Navbar webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI}/>
-            <Search webSocketAPI={webSocketAPI}/>
+
             <Chats webSocketAPI={webSocketAPI} setUserName={setUserName} userName={userName} setUserType={setUserType} userType={userType}/>
         </div>
     );

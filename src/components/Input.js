@@ -22,7 +22,9 @@ function Input({ webSocketAPI, userName }) {
 
 const sendChat = (event) => {
         const mess = document.getElementById('mess').value;
+    const utf8Message = encodeURIComponent(mess);
     event.preventDefault();
+
         const data = {
             action: "onchat",
             data: {
@@ -30,7 +32,7 @@ const sendChat = (event) => {
                 data: {
                     type: type,
                     to: userName,
-                    mes: mess
+                    mes: utf8Message
                 }
             }
         };

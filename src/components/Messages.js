@@ -39,25 +39,28 @@ function Messages({webSocketAPI, userName, userType}) {
             if(message.event === "GET_PEOPLE_CHAT_MES"){
                 const listMessagePeople = message.data;
                 setMessageList(listMessagePeople);
+
                 // console.log(listMessagePeople.slice().reverse());
             }
-            else if(message.event === "GET_ROOM_CHAT_MES"){
-                const listMessageRoom = message.data.chatData;
+            else if (message.event === "GET_ROOM_CHAT_MES") {
+                let listMessageRoom = [];
+                if (message.data && message.data.chatData) {
+                    listMessageRoom = message.data.chatData;
+
+                }
                 setMessageList(listMessageRoom);
-                // console.log(listMessageRoom);
             }
         })
     }, [webSocketAPI]);
 
     return (
-        <div className="messages">
+        <div className="messages" >
             {messageList.map((message) => (
-                <Message key={message.id} id={message.id} name={message.name} type={message.type} to={message.to} mes={message.mes}/>
+                <Message key={message.id} id={message.id} name={message.name} type={message.type} to={message.to} mes={decodeURI(message.mes)}/>
             ))}
 
         </div>
     );
 }
-
 
 export default Messages;

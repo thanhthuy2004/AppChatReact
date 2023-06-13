@@ -107,7 +107,8 @@ function Login({webSocketAPI, setIsLogin}) {
 
             if (message.data && message.data.RE_LOGIN_CODE) {
                 // Lưu giá trị RE_LOGIN_CODE vào localStorage
-                localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
+                const encodedValue = window.btoa(message.data.RE_LOGIN_CODE);
+                localStorage.setItem("RE_LOGIN_CODE", encodedValue);
             }
         });
 

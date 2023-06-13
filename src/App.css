@@ -258,7 +258,7 @@ input::placeholder{
   border-radius: 50%;
   object-fit: cover;
 }
-.message .timeMess{
+.timeMess{
   position: absolute;
   top: 62px;
   left: 0;
@@ -274,11 +274,12 @@ input::placeholder{
 }
 
 .message .messageContent{
-  max-width: 80%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
+  word-wrap: break-word;
 
 }
 .message .messageContent img{
@@ -288,7 +289,8 @@ input::placeholder{
   padding: 10px 20px;
   background-color: white;
   border-radius: 0 10px 10px 10px;
-  max-width: max-content;
+  max-width: 400px;
+  word-wrap: break-word;
 }
 
 
@@ -308,13 +310,13 @@ input::placeholder{
   color: white;
   border-radius: 10px 0px 10px 10px;
 }
-.message.owner .timeMess{
-  position: absolute;
+.timeMess{
+  position: static;
   top: 62px;
   left: 81%;
   font-size: 10px;
   color: gray;
-  margin-top: 5px;
+  margin-top: -25px;
 }
 .chat .input{
   height: 50px;

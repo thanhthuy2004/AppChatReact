@@ -17,6 +17,19 @@ function App() {
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
     }, []);
+    // useEffect(() => {
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+    //
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, []);
+    const handleBeforeUnload = (event) => {
+        // const socket = new WebSocketAPI();
+        //     setWebSocketAPI(socket);
+
+
+    };
 
     // window.addEventListener('reload', () => {
     //     // const socket = new WebSocketAPI();

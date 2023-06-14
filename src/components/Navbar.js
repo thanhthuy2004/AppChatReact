@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 
 function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
     const user = localStorage.getItem('username');
+    const reLoginCode = window.atob(localStorage.getItem("RE_LOGIN_CODE"));
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -17,6 +18,7 @@ function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
             }
         };
         webSocketAPI.send(logout);
+
     };
     useEffect(() => {
         if (!webSocketAPI) {
@@ -37,6 +39,7 @@ function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
                 }
             }
 
+
         });
     }, [webSocketAPI, setIsLogin]);
     return (
@@ -44,7 +47,7 @@ function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
             <span className="logo">Nhóm 26</span>
             <div className="user">
                 <img
-                    src="https://th.bing.com/th/id/R.6b8d9385853cc377b5b17617d0635101?rik=Euc8HcZ%2f20KSSg&pid=ImgRaw&r=0"
+                    src="https://www.studytienganh.vn/upload/2022/05/112275.jpg"
                     alt=""
                 />
                 <span>{user}</span>

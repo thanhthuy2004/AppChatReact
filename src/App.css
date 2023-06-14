@@ -415,7 +415,7 @@ input[type="checkbox"] {
 }
 .ReactModal__Content {
   width: 32%;
-  height: 24%;
+  height: 200px;
   margin: auto;
   background-color: white;
   border-radius: 10px;
@@ -430,7 +430,7 @@ input[type="checkbox"] {
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: red;
+  color: #ff3333;
 }
 .modal-title-sucess {
   font-size: 24px;

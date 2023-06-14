@@ -25,10 +25,9 @@ function Message({id,name,type,to,mes}) {
                 <img src={imgPersonal} alt=""/>
 
             </div>
-
             <div className="messageContent">
                 <p className="mess">{mes}</p>
-                {/*<img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}
+                {/*<img src={mes} alt="" />*/}
                 {/*<a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
                 {/*<div className="web-review">*/}
                 {/*    <p className="mess">*/}

@@ -27,13 +27,14 @@ function Message({id,name,type,to,mes}) {
 
             </div>
 
-            <div className="messageContent">
+            <div className="messageContent"   >
                 <p>{mes}</p>
                 {/*<img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt=""/>*/}
+                <div className="timeMess">
+                    {timer}
+                </div>
             </div>
-            <div className="timeMess">
-                {timer}
-            </div>
+
         </div>
 
 

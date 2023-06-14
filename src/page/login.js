@@ -71,7 +71,7 @@ function Login({webSocketAPI, setIsLogin}) {
                         required={true}
                     />
                     {loginError && <span className="error">{"*" + loginError}</span>}
-                        <button>Đăng nhập</button>
+                    <button>Đăng nhập</button>
                 </form>
 
                 <p>

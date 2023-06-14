@@ -163,9 +163,7 @@ input::placeholder{
   border-radius: 5px;
   cursor: pointer;
 }
-.sidebar .search{
-  border-bottom: 1px solid gray;
-}
+
 
 .sidebar .search .searchForm input{
   background-color: transparent;
@@ -178,6 +176,7 @@ input::placeholder{
   color: lightgray;
 }
 .sidebar .chats{
+  margin-top: 48px;
   height: calc(100% - 50px);
   overflow: scroll;
 }
@@ -189,6 +188,7 @@ input::placeholder{
   color: white;
   cursor: pointer;
 }
+
 .userChat:hover, .userChatActive{
   background-color: #2f2d52;
 }
@@ -371,18 +371,27 @@ input::placeholder{
 .create-room{
   margin-top: 10px;
   color: white;
-  /*margin-left: 270px;*/
 }
-.search{
+.chats .search{
   display: flex;
+  position: fixed;
+  /*background-color: #5d5b8d;*/
+  /*height: 50px;*/
+  top: 120px;
+  width: 299px;
+  border-bottom: 1px solid gray;
 }
 .btn-search{
   background-color: #5d5b8d;
   border-radius: 5px;
-  color: white;
+  border: none;
+  color: #ddddf7;
   float: right;
   margin-top: 5px;
   margin-right: 5px;
+}
+.btn .btn-primary{
+  background-color: #5d5b8d;
 }
 FiSearch{
   margin: auto;
@@ -428,7 +437,7 @@ input[type="checkbox"] {
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #11ff00;
+  color: #5cb85c;
 }
 .modal-message {
   font-size: 15px;

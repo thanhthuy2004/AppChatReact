@@ -8,7 +8,6 @@ function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
 
-
     const handleLogout = () => {
         // Gửi yêu cầu đăng xuất đến API appchat
         const logout = {

@@ -49,7 +49,7 @@ function Login({webSocketAPI, setIsLogin}) {
             }
         });
 
-    }, [webSocketAPI]);
+    }, [webSocketAPI,setIsLogin]);
     return (
         <div className="formContainer">
             <div className="formWrapper">

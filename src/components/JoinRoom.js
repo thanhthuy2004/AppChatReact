@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from "react-bootstrap/Button";
 import {IoIosPeople} from "react-icons/io";
+import ReactModal from 'react-modal';
 
 function ModalJoinRoom(props) {
     const { websocketapi } = props;
     const [name, setName] = useState('');
+    const [roomName, setRoomName] = useState('');
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const joinRoom = () => {
         const JoinRoom = {
@@ -25,7 +28,8 @@ function ModalJoinRoom(props) {
             }
             if(mess.event === "JOIN_ROOM" && mess.status === "success"){
                 props.onHide();
-                alert("Tham gia thành công, hãy tìm kiếm ngay nào!")
+                setModalIsOpen(true);
+                setRoomName(name);
                 setName("");
             }
         });
@@ -33,6 +37,7 @@ function ModalJoinRoom(props) {
     };
 
     return (
+        <>
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -51,10 +56,16 @@ function ModalJoinRoom(props) {
                 <span id="error" className="error"></span>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={props.onHide}>Thoát</Button>
+                <Button className="f-left" variant="secondary" onClick={props.onHide}>Thoát</Button>
                 <Button onClick={joinRoom}>Xong</Button>
             </Modal.Footer>
         </Modal>
+            <ReactModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <h2 className="modal-title-sucess">Thành công</h2>
+                <p className="modal-message">Bạn vừa tham gia phòng <span className="roomName">{roomName}</span>, hãy tìm kiếm và chat ngay nào!</p>
+                <button className="modal-button" onClick={() => setModalIsOpen(false)}>OK</button>
+            </ReactModal>
+        </>
     );
 }
 

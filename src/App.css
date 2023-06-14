@@ -118,7 +118,7 @@ input::placeholder{
 .container1{
   border: 1px solid white;
   border-radius: 10px;
-  width: 65%;
+  width: 70%;
   height: 80%;
   display: flex;
   overflow: hidden;
@@ -259,12 +259,12 @@ input::placeholder{
   object-fit: cover;
 }
 .message .timeMess{
-  position: absolute;
+  position: static;
   top: 62px;
   left: 0;
   font-size: 10px;
   color: gray;
-  margin-top: 5px;
+  margin-top: -25px;
 }
 .username{
   font-size: 13px;
@@ -281,14 +281,15 @@ input::placeholder{
   margin-top: 20px;
 
 }
-/*.message .messageContent img{*/
-/*  width: 50%;*/
-/*}*/
+.message .messageContent img{
+  width: 50%;
+}
 .message .messageContent p{
   padding: 10px 20px;
   background-color: white;
   border-radius: 0 10px 10px 10px;
-  max-width: max-content;
+  max-width: 400px;
+  word-wrap: break-word;
 }
 
 
@@ -307,14 +308,16 @@ input::placeholder{
   background-color: #8da4f1;
   color: white;
   border-radius: 10px 0px 10px 10px;
+  max-width: 400px;
+  word-wrap: break-word;
 }
 .message.owner .timeMess{
-  position: absolute;
+  position: static;
   top: 62px;
   left: 81%;
   font-size: 10px;
   color: gray;
-  margin-top: 5px;
+  margin-top: -25px;
 }
 .chat .input{
   height: 50px;
@@ -401,25 +404,50 @@ input[type="checkbox"] {
   height: 20px;
   margin-bottom: 2px;
 }
-.web-review{
-  width: 300px;
-  background-color: #8da4f1;
-  border-radius: 10px 0px 10px 10px;
-}
-.web-review img{
-  width: 100%;
-}
-.mess{
-  width: 300px;
-}
-.container-title-wr{
-  width: 300px;
-  background-color: #a3bbe7;
-  border-radius: 0px 0px 10px 10px;
-}
-.title-wr{
-color: #070404;
-  font-weight: bolder;
-padding: 20px;
+.ReactModal__Content {
+  width: 32%;
+  height: 24%;
+  margin: auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
+.ReactModal__Overlay {
+  background-color: rgba(7, 4, 4, 0.38);
+}
+.modal-title-warning {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: red;
+}
+.modal-title-sucess {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #11ff00;
+}
+.modal-message {
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.modal-button {
+  display: block;
+  height: 30px;
+  width: 50px;
+  margin: auto;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  background-color:  #5d5b8d;
+  color: white;
+}
+.roomName{
+  font-weight: bolder;
+  color: #de0a0a;
+  font-size: 20px;
+}

@@ -4,7 +4,7 @@ import WebSocketAPI from "../store/WebSocketAPI";
 import "../App.css"
 import { FiLogOut } from "react-icons/fi";
 
-function Navbar({webSocketAPI, setWebSocketAPI}) {
+function Navbar({webSocketAPI, setWebSocketAPI,setIsLogin}) {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
 
@@ -31,6 +31,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
                     console.log(message.mes);
                 } else {
                     navigate("/login");
+                    setIsLogin(false);
                     localStorage.clear();
                     const socket = new WebSocketAPI();
                     setWebSocketAPI(socket);
@@ -38,7 +39,7 @@ function Navbar({webSocketAPI, setWebSocketAPI}) {
             }
 
         });
-    }, [webSocketAPI]);
+    }, [webSocketAPI, setIsLogin]);
     return (
         <div className="navbar">
             <span className="logo">Nhóm 26</span>

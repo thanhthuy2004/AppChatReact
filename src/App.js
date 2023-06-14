@@ -53,7 +53,7 @@ function App() {
                 <Route path="/">
                     <Route index element={
                         <ProtectedRoute>
-                            <Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI} />
+                            <Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI} setIsLogin={setIsLogin}/>
                         </ProtectedRoute>
                     }/>
                     <Route path='login' element={

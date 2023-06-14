@@ -9,19 +9,18 @@ function Message({id,name,type,to,mes}) {
         classOwn = "message owner";
     }
     let hours = new Date(Date.now()).getHours() >= 12 ? 'PM':'AM';
+    let month = new Date(Date.now()).getMonth() + 1;
     let timer = new Date(Date.now()).getDate()+
-        "-"+ new Date(Date.now()).getMonth()+
+        "-"+ month+
         "-"+ new Date(Date.now()).getFullYear()+
         ", "+ new Date(Date.now()).getHours()+
         ":"+ new Date(Date.now()).getMinutes()+
         " "+ hours;
     return (
-        // <div className="message owner">
         <div className={classOwn}>
             <div className="messageInfo">
                 <div className="messageInfoDetail">
                     <span className="username">{name}</span>
-                    {/*<span></span>*/}
                 </div>
                 <img src={imgPersonal} alt=""/>
 
@@ -29,8 +28,10 @@ function Message({id,name,type,to,mes}) {
 
             <div className="messageContent">
                 <p className="mess">{mes}</p>
+                {/*<img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}
+                {/*<a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
                 {/*<div className="web-review">*/}
-                {/*<p className="mess">*/}
+                {/*    <p className="mess">*/}
                 {/*    <a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
                 {/*</p>*/}
                 {/*    <img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}

@@ -165,7 +165,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 </div>
                 <div className="searchForm col-11">
                     <input className="col-8" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)} required={true}/>
-                    <input type="checkbox" onChange={handleCheckboxChange} title="Tìm kiếm phòng"/>  <JoinRoom websocketapi={webSocketAPI} title="Tham gia phòng"  userList={userList} setUserList={setUserList}/>
+                    <input type="checkbox" onChange={handleCheckboxChange} title="Tìm kiếm phòng"/>  <JoinRoom websocketapi={webSocketAPI} title="Tham gia phòng"  userlist={userList} setuserlist={setUserList}/>
                     <button className="btn-search" onClick={handleAddUser} title="Tìm kiếm">
                         <FiSearch className="userSearch"/>
                     </button>
@@ -176,7 +176,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                         <UserChat id={index} name={user.name} type={user.type} actionTime={formatActionTime(user.actionTime)} userName={userName} />
                 </div>
             ))}
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+            <Modal className="ModalWarningRoom" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                 <h2 className="modal-title-warning">Thông báo</h2>
                 <p className="modal-message">Bạn chưa tham gia hoặc phòng này chưa được tạo!</p>
                 <button className="modal-button" onClick={() => setModalIsOpen(false)}>OK</button>

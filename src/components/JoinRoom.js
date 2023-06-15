@@ -5,7 +5,7 @@ import {IoIosPeople} from "react-icons/io";
 import {icons} from "react-icons";
 
 function ModalJoinRoom(props) {
-    const { websocketapi, userList, setUserList} = props;
+    const { websocketapi, userlist, setuserlist} = props;
     const [name, setName] = useState('');
 
     const joinRoom = () => {
@@ -30,7 +30,7 @@ function ModalJoinRoom(props) {
                     type: 1,
                     actionTime: new Date().toLocaleString()
                 };
-                const existingUserIndex = userList.findIndex(user => user.name === name && user.type === 1);
+                const existingUserIndex = userlist.findIndex(user => user.name === name && user.type === 1);
                 if (existingUserIndex !== -1) {
                     // Nếu đã tồn tại, thêm class userChatActive vào div chứa user đó
                     const userChat = document.querySelectorAll('.userChat');
@@ -47,7 +47,7 @@ function ModalJoinRoom(props) {
                     });
                 } else {
 
-                    setUserList([newRoom, ...userList]);
+                    setuserlist([newRoom, ...userlist]);
                 }
                 props.onHide();
                 setName("");
@@ -55,7 +55,6 @@ function ModalJoinRoom(props) {
         });
     };
     return (
-        <>
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -78,11 +77,10 @@ function ModalJoinRoom(props) {
                 <Button onClick={joinRoom}>Xong</Button>
             </Modal.Footer>
         </Modal>
-        </>
     );
 }
 
-function JoinRoom({ websocketapi, title, userList, setUserList }) {
+function JoinRoom({ websocketapi, title, userlist, setuserlist }) {
     const [modalShow, setModalShow] = React.useState(false);
     return (
         <>
@@ -95,8 +93,8 @@ function JoinRoom({ websocketapi, title, userList, setUserList }) {
 
             <ModalJoinRoom
                 websocketapi={websocketapi}
-                userList = {userList}
-                setUserList={setUserList}
+                userlist = {userlist}
+                setuserlist={setuserlist}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />

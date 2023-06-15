@@ -37,7 +37,6 @@
   }
 }
 
-
 /*Register and Login*/
 .formContainer{
   background-color: #a7bcff;
@@ -177,7 +176,7 @@ input::placeholder{
 }
 .sidebar .chats{
   margin-top: 48px;
-  height: calc(100% - 50px);
+  height: calc(100% - 80px);
   overflow: scroll;
 }
 .userChat{
@@ -264,7 +263,7 @@ input::placeholder{
   left: 0;
   font-size: 10px;
   color: gray;
-  margin-top: -25px;
+  margin-top: 6px;
 }
 .username{
   font-size: 13px;
@@ -317,7 +316,7 @@ input::placeholder{
   left: 81%;
   font-size: 10px;
   color: gray;
-  margin-top: -25px;
+  margin-top: 6px;
 }
 .chat .input{
   height: 50px;
@@ -326,6 +325,7 @@ input::placeholder{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 .input input{
   width: 100%;
@@ -496,4 +496,14 @@ input[type="checkbox"] {
   font-weight: bolder;
   color: #de0a0a;
   font-size: 20px;
+}
+
+.input .img_div img{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+  top: -48px;
+  left: 28px;
+  margin-left: 12px;
 }

@@ -42,15 +42,16 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             setTypeUser(0);
         }
     }
+
+
     const handleUserChatClick = (name, type) => {
         setUserName(name);
-        setUserType(type);
         const getMessPeopleList = {
             action: "onchat",
             data: {
                 event: "GET_PEOPLE_CHAT_MES",
                 data: {
-                    name: userName,
+                    name: name,
                     page: 1
                 }
             }
@@ -60,16 +61,18 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             data: {
                 event: "GET_ROOM_CHAT_MES",
                 data: {
-                    name: userName,
+                    name: name,
                     page: 1
                 }
             }
         }
-        if(userType === 0) {
+        setUserType(type);
+        if(type === 0) {
             webSocketAPI.send(getMessPeopleList);
-        }else{
+        }else  if(type === 1){
             webSocketAPI.send(getMessRoomList);
         }
+
     };
 
 

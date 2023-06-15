@@ -6,11 +6,15 @@ import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import WebSocketAPI from "./store/WebSocketAPI";
 import Modal from 'react-modal';
+import {listAll} from "firebase/storage";
+
 
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
     const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
     const [isLogin, setIsLogin] = useState(false);
+
+
     // create socket
     useEffect(() => {
         Modal.setAppElement('#root');
@@ -24,12 +28,7 @@ function App() {
     //         window.removeEventListener('beforeunload', handleBeforeUnload);
     //     };
     // }, []);
-    const handleBeforeUnload = (event) => {
-        // const socket = new WebSocketAPI();
-        //     setWebSocketAPI(socket);
 
-
-    };
 
     // window.addEventListener('reload', () => {
     //     // const socket = new WebSocketAPI();

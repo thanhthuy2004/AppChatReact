@@ -28,21 +28,33 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             name: newUserName,
             type: typeUser,
             actionTime: formatActionTime(createdTime.getTime())
-
         };
         const existingUserIndex = userList.findIndex(user => user.name === newUserName && user.type === newUser.type);
         if (existingUserIndex !== -1) {
-            // Nếu đã tồn tại và cùng type, xóa username cũ
-            userList.splice(existingUserIndex, 1);
-        }
-        if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
+            // Nếu đã tồn tại, thêm class userChatActive vào div chứa user đó
+            const userChats = document.querySelectorAll('.userChat');
+            userChats.forEach((userChat) => {
+                userChat.classList.remove('userChatActive');
+            });
+            const existingUserSpans = document.querySelectorAll('.userChat span:not(.userChatInfo)');
+            existingUserSpans.forEach((span) => {
+                if (span.innerHTML === newUser.name) {
+                    const activeUserChat = span.closest('.userChat');
+                    activeUserChat.classList.add('userChatActive');
+                    activeUserChat.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        } else if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
             // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
             setModalIsOpen(true);
             return;
+        } else {
+            // Nếu chưa tồn tại, thêm user mới vào đầu danh sách
+            setUserList(prevList => [newUser, ...prevList]);
         }
-        setUserList(prevList => [newUser, ...prevList]);
         setNewUserName('');
     }
+
     const handleCheckboxChange = (event) => {
         if (event.target.checked) {
             setTypeUser(1);
@@ -51,6 +63,18 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         }
     }
     const handleUserChatClick = (name, type) => {
+        // Kiểm tra và xóa class userChatActive trên tất cả các thẻ div trong danh sách người dùng
+        const userChats = document.querySelectorAll('.userChat');
+        userChats.forEach((userChat) => {
+            userChat.classList.remove('userChatActive');
+        });
+
+        // Thêm class userChatActive vào thẻ div của người dùng được chọn (nếu có)
+        const selectedUserDiv = document.getElementById(`${name}-${type}`);
+        if (selectedUserDiv) {
+            selectedUserDiv.classList.add('userChatActive');
+        }
+
         setUserName(name);
         setUserType(type);
         const getMessPeopleList = {
@@ -75,11 +99,10 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         }
         if(userType === 0) {
             webSocketAPI.send(getMessPeopleList);
-        }else{
+        } else {
             webSocketAPI.send(getMessRoomList);
         }
     };
-
 
     const getUserList = {
         action: "onchat",
@@ -108,7 +131,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 const existingUserIndex = listUser.findIndex(user => user.name === newUserName && user.type === newUser.type);
                 if (existingUserIndex !== -1) {
                     // Nếu đã tồn tại và cùng type, xóa username cũ
-                    listUser.splice(existingUserIndex, 1);
+                     listUser.splice(existingUserIndex, 1);
                 }
 
                 // Đưa newUserName lên đầu danh sách
@@ -150,7 +173,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             </div>
             {userList.map((user, index) => (
                 <div onClick={() => handleUserChatClick(user.name, user.type)} key={index}>
-                    <UserChat id={index} name={user.name} type={user.type} actionTime={user.actionTime} userName={userName} />
+                        <UserChat id={index} name={user.name} type={user.type} actionTime={formatActionTime(user.actionTime)} userName={userName} />
                 </div>
             ))}
             <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>

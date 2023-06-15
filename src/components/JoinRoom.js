@@ -2,13 +2,10 @@ import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from "react-bootstrap/Button";
 import {IoIosPeople} from "react-icons/io";
-import ReactModal from 'react-modal';
 
 function ModalJoinRoom(props) {
     const { websocketapi } = props;
     const [name, setName] = useState('');
-    const [roomName, setRoomName] = useState('');
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const joinRoom = () => {
         const JoinRoom = {
@@ -28,14 +25,22 @@ function ModalJoinRoom(props) {
             }
             if(mess.event === "JOIN_ROOM" && mess.status === "success"){
                 props.onHide();
-                setModalIsOpen(true);
-                setRoomName(name);
                 setName("");
             }
         });
-
+        const userChat = document.querySelectorAll('.userChat');
+        userChat.forEach((userChat) => {
+            userChat.classList.remove('userChatActive');
+        });
+        const existingUserSpans = document.querySelectorAll('.userChat span:not(.userChatInfo)');
+        existingUserSpans.forEach((span) => {
+            if (span.innerHTML === name) {
+                const activeUserChat = span.closest('.userChat');
+                activeUserChat.classList.add('userChatActive');
+                activeUserChat.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     };
-
     return (
         <>
         <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
@@ -60,18 +65,12 @@ function ModalJoinRoom(props) {
                 <Button onClick={joinRoom}>Xong</Button>
             </Modal.Footer>
         </Modal>
-            <ReactModal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                <h2 className="modal-title-sucess">Thành công</h2>
-                <p className="modal-message">Bạn vừa tham gia phòng <span className="roomName">{roomName}</span>, hãy tìm kiếm và chat ngay nào!</p>
-                <button className="modal-button" onClick={() => setModalIsOpen(false)}>OK</button>
-            </ReactModal>
         </>
     );
 }
 
 function JoinRoom({ websocketapi, title }) {
     const [modalShow, setModalShow] = React.useState(false);
-
     return (
         <>
             <IoIosPeople title = {title}

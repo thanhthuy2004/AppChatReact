@@ -413,6 +413,43 @@ input[type="checkbox"] {
   height: 20px;
   margin-bottom: 2px;
 }
+
+.chat-sender>input{
+  height: 100%;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  flex  :1 ;
+  font-size: 14px;
+  padding: 0px 15px 0px 15px;
+}
+.chat-sender>div:nth-of-type(1)
+{
+  width: 106%;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer
+}
+.chat-sender>div{
+  height: 100%;
+  padding: 0px 15px 0px 0px;
+}
+.chat-sender .react-emoji button{
+  background: white;
+  padding: 6px;
+}
+.send{
+  width: 100%;
+}
+.chat-sender{
+  width: 100%;
+}
+.chat-sender .react-emoji button svg {
+  fill: #c8c7c7;
+}
 .ReactModal__Content {
   width: 32%;
   height: 200px;

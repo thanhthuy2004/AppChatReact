@@ -41,7 +41,9 @@ function Message({id,name,type,to,mes}) {
             </div>
             <div className="timeMess">
                 {timer}
+
             </div>
+
         </div>
 
 

@@ -4,11 +4,13 @@ import UserChat from "../components/UserChat";
 import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
 import JoinRoom from "./JoinRoom";
+import Modal from 'react-modal';
 function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
     const [typeUser, setTypeUser] = useState(0);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
     function formatActionTime(actionTime) {
         const date = new Date(actionTime);
         const year = date.getFullYear();
@@ -35,7 +37,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         }
         if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
             // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
-            alert("Bạn chưa tham gia hoặc phòng này chưa được tạo!");
+            setModalIsOpen(true);
             return;
         }
         setUserList(prevList => [newUser, ...prevList]);
@@ -115,7 +117,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 setRoomList(listRoom);
                 if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
                     // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
-                    alert("Bạn chưa tham gia hoặc phòng này chưa được tạo!");
+                    setModalIsOpen(true);
                     return;
                 }
                 setUserList(prevList => {
@@ -133,7 +135,6 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
 
     }, [webSocketAPI]);
     return (
-
         <div className="chats">
             <div className="search">
                 <div className="col-1">
@@ -152,6 +153,11 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                     <UserChat id={index} name={user.name} type={user.type} actionTime={user.actionTime} userName={userName} />
                 </div>
             ))}
+            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+                <h2 className="modal-title-warning">Thông báo</h2>
+                <p className="modal-message">Bạn chưa tham gia hoặc phòng này chưa được tạo!</p>
+                <button className="modal-button" onClick={() => setModalIsOpen(false)}>OK</button>
+            </Modal>
         </div>
 
     );

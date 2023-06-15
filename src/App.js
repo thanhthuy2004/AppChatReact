@@ -5,12 +5,14 @@ import Home from "./page/home";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import WebSocketAPI from "./store/WebSocketAPI";
+import Modal from 'react-modal';
 
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
     const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
     const [isLogin, setIsLogin] = useState(false);
     useEffect(() => {
+        Modal.setAppElement('#root');
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
     }, []);

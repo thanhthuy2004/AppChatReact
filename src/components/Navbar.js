@@ -7,8 +7,6 @@ import { FiLogOut } from "react-icons/fi";
 function Navbar({webSocketAPI, setWebSocketAPI}) {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
-
-
     const handleLogout = () => {
         // Gửi yêu cầu đăng xuất đến API appchat
         const logout = {

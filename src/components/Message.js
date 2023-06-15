@@ -27,21 +27,14 @@ function Message({id,name,type,to,mes}) {
 
             </div>
 
-            <div className="messageContent">
-                <p className="mess">{mes}</p>
-                {/*<div className="web-review">*/}
-                {/*<p className="mess">*/}
-                {/*    <a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
-                {/*</p>*/}
-                {/*    <img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}
-                {/*    <div className="container-title-wr">*/}
-                {/*    <span className="title-wr">Đây là title</span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+            <div className="messageContent"   >
+                <p>{mes}</p>
+                {/*<img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt=""/>*/}
+                <div className="timeMess">
+                    {timer}
+                </div>
             </div>
-            <div className="timeMess">
-                {timer}
-            </div>
+
         </div>
 
 

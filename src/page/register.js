@@ -32,7 +32,7 @@ function Register({ webSocketAPI }) {
             if (message.status === "error") {
                 setRegisterError("Tên tài khoản đã tồn tại");
                 console.log(message.mes);
-            } else if(password != confirmpassword){
+            } else if(password !== confirmpassword){
                 setRegisterError("Vui lòng xác nhận lại mật khẩu trước đó!")
             } else {
                 // Đăng nhập thành công, chuyển hướng đến trang home

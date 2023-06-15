@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import React, { useEffect} from "react";
+import { useNavigate} from "react-router-dom";
 import WebSocketAPI from "../store/WebSocketAPI";
 import "../App.css"
 import { FiLogOut } from "react-icons/fi";
@@ -7,8 +7,6 @@ import { FiLogOut } from "react-icons/fi";
 function Navbar({webSocketAPI, setWebSocketAPI}) {
     const user = localStorage.getItem('username');
     const navigate = useNavigate();
-
-
     const handleLogout = () => {
         // Gửi yêu cầu đăng xuất đến API appchat
         const logout = {

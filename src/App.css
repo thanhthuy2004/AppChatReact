@@ -442,15 +442,21 @@ input[type="checkbox"] {
 }
 .ReactModal__Content {
   width: 32%;
-  height: 24%;
-  margin: auto;
   background-color: white;
-  border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
-
+.ModalWarningRoom{
+  border-radius: 10px;
+  margin: 300px auto 300px auto;
+  height: 22%;
+}
+.ModalInforChat{
+  border-radius: 10px 0px 10px 10px;
+  margin: 100px 10px 300px 700px;
+  height: 70%;
+}
 .ReactModal__Overlay {
-  background-color: rgba(7, 4, 4, 0.38);
+  background-color: transparent;
 }
 .modal-title-warning {
   font-size: 24px;
@@ -466,10 +472,40 @@ input[type="checkbox"] {
   margin-bottom: 20px;
   color: #11ff00;
 }
+.modal-title-infor{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  color: #070404;
+}
+.containerimg{
+  width: 100%;
+  text-align: center;
+}
+.imgChatInfor{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: #2f2d52 solid 5px;
+}
+.nameChat{
+  color: blue;
+  margin-top: 10px;
+}
 .modal-message {
   font-size: 15px;
   text-align: center;
   margin-bottom: 20px;
+}
+.modal-listuser{
+  font-size: 15px;
+  margin-left: 220px;
+  margin-bottom: 5px;
+  margin-top: -5px;
+  font-weight: bolder;
 }
 .modal-button {
   display: block;
@@ -482,8 +518,27 @@ input[type="checkbox"] {
   background-color:  #5d5b8d;
   color: white;
 }
+.Owner-modal{
+  margin-left: 20px;
+  font-size: 20px;
+  color: #3e3c61;
+  font-weight: bolder;
+}
+.ml-20{
+  margin-left: 20px;
+}
+.modal-close {
+  float: right;
+  margin-right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #070404;
+  font-weight: bold;
+  text-align: center;
+}
+
 .roomName{
   font-weight: bolder;
-  color: #de0a0a;
-  font-size: 20px;
+  color: #0ade2e;
+  font-size: 14px;
 }

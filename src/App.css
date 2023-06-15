@@ -442,7 +442,7 @@ input[type="checkbox"] {
 }
 .ReactModal__Content {
   width: 32%;
-  height: 24%;
+  height: 28%;
   margin: auto;
   background-color: white;
   border-radius: 10px;

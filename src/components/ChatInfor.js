@@ -108,22 +108,35 @@ function ChatInfor({webSocketAPI, userName, userType}) {
                 {listMess
                     .filter((item) => isFirebaseAudioURL(item.mes))
                     .map((item) => (
-                    <audio className="listAudioInfor" src={item.mes} controls id="audio" />
+                    <audio className="listAudioInfor" key={item.id} src={item.mes} controls id="audio" />
                     ))}
                 <p className="ml-20">Liên kết:</p>
                 {listMess
                     .filter((item) => isFirebaseURL(item.mes))
                     .map((item) => (
-                        <div className="cover-link">
-                        <a className="ml-20 listURLInfor" href={item.mes}>{item.mes}</a>
+                        <div key={item.id}  className="cover-link">
+                        <a className="ml-20 listURLInfor" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} target="_blank" href={item.mes}>{item.mes}</a>
                         </div>
                     ))}
                 {userType === 1 && (
                     <>
-                        <p className="ml-20">Quản trị viên: <span className="Owner-modal">{own}</span> </p>
                         <p className="ml-20">Danh sách các thành viên:</p>
+                        <div className="modal-listuser">
+                            <img className="avtUser" src="https://www.studytienganh.vn/upload/2022/05/112275.jpg"/>
+                            <div className="border-member">
+                                <span className="nameUser">{own}</span>
+                                <p className="member">Người tạo phòng</p>
+                            </div>
+                        </div>
+
                         {listUserChatRoom.map(user => (
-                            <p key={user.id} className="modal-listuser">{user.name}</p>
+                            <div key={user.id} className="modal-listuser">
+                                <img className="avtUser" src="https://www.studytienganh.vn/upload/2022/05/112275.jpg"/>
+                                <div className="border-member">
+                                    <span className="nameUser">{user.name}</span>
+                                    <p className="member">Thành viên</p>
+                                </div>
+                            </div>
                         ))}
                     </>
                 )}

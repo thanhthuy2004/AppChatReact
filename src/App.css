@@ -597,6 +597,21 @@ input[type="checkbox"] {
 .modal-title{
   color:#7b96ec;
 }
+video{
+  max-width: 200px;
+  max-height: 360px;
+}
+.showVideo {
+  position: absolute;
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 3px;
+  top: -78px;
+  left: 28px;
+  margin-left: 12px;
+  color: #0ade2e;
+  font-size: 14px;
+}
 .message .messageContent .web-review{
   background-color: white;
   color: #070404;
@@ -647,6 +662,27 @@ input[type="checkbox"] {
 .listURLInfor{
   margin-left: 10px;
   font-size: 12px;
+
+}
+
+.message.owner .messageContent button{
+  padding: 10px 20px;
+  background-color: #8da4f1;
+  color: white;
+  border-radius: 10px 0px 10px 10px;
+  max-width: 400px;
+  word-wrap: break-word;
+  border: none;
+  text-decoration: underline;
+}
+.message .messageContent button{
+  padding: 10px 20px;
+  background-color: white;
+  border-radius: 0 10px 10px 10px;
+  max-width: 400px;
+  word-wrap: break-word;
+  border: none;
+  text-decoration: underline;
   display: block;
   padding: 10px;
   text-decoration: none;

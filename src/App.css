@@ -37,7 +37,6 @@
   }
 }
 
-
 /*Register and Login*/
 .formContainer{
   background-color: #a7bcff;
@@ -163,9 +162,7 @@ input::placeholder{
   border-radius: 5px;
   cursor: pointer;
 }
-.sidebar .search{
-  border-bottom: 1px solid gray;
-}
+
 
 .sidebar .search .searchForm input{
   background-color: transparent;
@@ -178,7 +175,8 @@ input::placeholder{
   color: lightgray;
 }
 .sidebar .chats{
-  height: calc(100% - 50px);
+  margin-top: 48px;
+  height: calc(100% - 80px);
   overflow: scroll;
 }
 .userChat{
@@ -189,6 +187,7 @@ input::placeholder{
   color: white;
   cursor: pointer;
 }
+
 .userChat:hover, .userChatActive{
   background-color: #2f2d52;
 }
@@ -264,7 +263,7 @@ input::placeholder{
   left: 0;
   font-size: 10px;
   color: gray;
-  margin-top: -25px;
+  margin-top: 6px;
 }
 .username{
   font-size: 13px;
@@ -281,8 +280,12 @@ input::placeholder{
   margin-top: 20px;
 
 }
+
 .message .messageContent img{
   width: 50%;
+}
+.message.owner .messageContent audio::-webkit-media-controls-panel{
+  background-color: #a7bcff;
 }
 .message .messageContent p{
   padding: 10px 20px;
@@ -317,7 +320,7 @@ input::placeholder{
   left: 81%;
   font-size: 10px;
   color: gray;
-  margin-top: -25px;
+  margin-top: 6px;
 }
 .chat .input{
   height: 50px;
@@ -326,6 +329,7 @@ input::placeholder{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 .input input{
   width: 100%;
@@ -370,18 +374,27 @@ input::placeholder{
 .create-room{
   margin-top: 10px;
   color: white;
-  /*margin-left: 270px;*/
 }
-.search{
+.chats .search{
   display: flex;
+  position: fixed;
+  /*background-color: #5d5b8d;*/
+  /*height: 50px;*/
+  top: 120px;
+  width: 299px;
+  border-bottom: 1px solid gray;
 }
 .btn-search{
   background-color: #5d5b8d;
   border-radius: 5px;
-  color: white;
+  border: none;
+  color: #ddddf7;
   float: right;
   margin-top: 5px;
   margin-right: 5px;
+}
+.btn .btn-primary{
+  background-color: #5d5b8d;
 }
 FiSearch{
   margin: auto;
@@ -403,6 +416,7 @@ input[type="checkbox"] {
   height: 20px;
   margin-bottom: 2px;
 }
+
 .chat-sender>input{
   height: 100%;
   border-radius: 0.5rem;
@@ -441,7 +455,7 @@ input[type="checkbox"] {
 }
 .ReactModal__Content {
   width: 32%;
-  height: 24%;
+  height: 200px;
   margin: auto;
   background-color: white;
   border-radius: 10px;
@@ -456,14 +470,14 @@ input[type="checkbox"] {
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: red;
+  color: #ff3333;
 }
 .modal-title-sucess {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  color: #11ff00;
+  color: #5cb85c;
 }
 .modal-message {
   font-size: 15px;
@@ -499,4 +513,14 @@ input[type="checkbox"] {
   color: #7b96ec;
   font-size: 20px;
   margin-left: 3px;
+}
+
+.input .img_div img{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+  top: -48px;
+  left: 28px;
+  margin-left: 12px;
 }

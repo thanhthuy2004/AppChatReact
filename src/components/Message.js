@@ -9,31 +9,51 @@ function Message({id,name,type,to,mes}) {
         classOwn = "message owner";
     }
     let hours = new Date(Date.now()).getHours() >= 12 ? 'PM':'AM';
+    let month = new Date(Date.now()).getMonth() + 1;
     let timer = new Date(Date.now()).getDate()+
-        "-"+ new Date(Date.now()).getMonth()+
+        "-"+ month+
         "-"+ new Date(Date.now()).getFullYear()+
         ", "+ new Date(Date.now()).getHours()+
         ":"+ new Date(Date.now()).getMinutes()+
         " "+ hours;
+
+    function isLinkImg(str) {
+        const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/images/g;
+        return str.match(pattern);
+    }
+    function isLinkAudio(str) {
+        const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/record/g;
+        return str.match(pattern);
+    }
+    // console.log(isLink("https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/images%2Fốp lưng.jpg31c30153-7c38-44df-9312-a8c68afea401?alt=media&token=33a45d1e-30c9-48f9-9f7b-168a4365401f"))
     return (
-        // <div className="message owner">
         <div className={classOwn}>
             <div className="messageInfo">
                 <div className="messageInfoDetail">
                     <span className="username">{name}</span>
-                    {/*<span></span>*/}
                 </div>
                 <img src={imgPersonal} alt=""/>
-
-            </div>
-
-            <div className="messageContent"   >
-                <p>{mes}</p>
-                {/*<img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt=""/>*/}
                 <div className="timeMess">
                     {timer}
                 </div>
             </div>
+            <div className="messageContent">
+                {!isLinkImg(mes) && !isLinkAudio(mes) && <p className="mess">{mes}</p>}
+                <img src={isLinkImg(mes) ? mes : ""} alt="" />
+                {isLinkAudio(mes) && <audio src={mes} alt="" controls id="audio" />}
+                {/*<a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
+                {/*<div className="web-review">*/}
+                {/*    <p className="mess">*/}
+                {/*    <a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
+                {/*</p>*/}
+                {/*    <img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}
+                {/*    <div className="container-title-wr">*/}
+                {/*    <span className="title-wr">Đây là title</span>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+            </div>
+
 
         </div>
 

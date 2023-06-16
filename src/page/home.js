@@ -2,8 +2,9 @@ import React, {useState, useEffect} from "react";
 import Sidebar from "../components/Sidebar";
 import Chat from "../components/Chat";
 import "../App.css"
+import WebSocketAPI from '../store/WebSocketAPI'
 
-function Home({webSocketAPI, setWebSocketAPI}) {
+function Home({webSocketAPI, setWebSocketAPI, setIsLogin}) {
 
     // const username = localStorage.getItem("username");
 
@@ -41,6 +42,7 @@ function Home({webSocketAPI, setWebSocketAPI}) {
                     userName={userName}
                     setUserType={setUserType}
                     userType={userType}
+                    setIsLogin={setIsLogin}
                 />
                 <Chat
                     webSocketAPI={webSocketAPI}

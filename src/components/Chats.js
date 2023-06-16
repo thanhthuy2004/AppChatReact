@@ -5,29 +5,21 @@ import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
 import JoinRoom from "./JoinRoom";
 import Modal from 'react-modal';
+import Search from "./Search";
 function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
     const [typeUser, setTypeUser] = useState(0);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    function formatActionTime(actionTime) {
-        const date = new Date(actionTime);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    }
+
     const handleAddUser = (event) => {
         event.preventDefault();
         const createdTime = new Date();
         const newUser = {
             name: newUserName,
             type: typeUser,
-            actionTime: formatActionTime(createdTime.getTime())
+            actionTime: createdTime.getTime()
 
         };
         const existingUserIndex = userList.findIndex(user => user.name === newUserName && user.type === newUser.type);
@@ -50,15 +42,16 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             setTypeUser(0);
         }
     }
+
+
     const handleUserChatClick = (name, type) => {
         setUserName(name);
-        setUserType(type);
         const getMessPeopleList = {
             action: "onchat",
             data: {
                 event: "GET_PEOPLE_CHAT_MES",
                 data: {
-                    name: userName,
+                    name: name,
                     page: 1
                 }
             }
@@ -68,16 +61,18 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             data: {
                 event: "GET_ROOM_CHAT_MES",
                 data: {
-                    name: userName,
+                    name: name,
                     page: 1
                 }
             }
         }
-        if(userType === 0) {
+        setUserType(type);
+        if(type === 0) {
             webSocketAPI.send(getMessPeopleList);
-        }else{
+        }else  if(type === 1){
             webSocketAPI.send(getMessRoomList);
         }
+
     };
 
 
@@ -102,7 +97,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 const newUser = {
                     name: newUserName,
                     type: typeUser,
-                    actionTime: formatActionTime(createdTime.getTime())
+                    actionTime: createdTime.getTime()
                 };
                 // Kiểm tra xem newUserName đã tồn tại trong danh sách hay chưa
                 const existingUserIndex = listUser.findIndex(user => user.name === newUserName && user.type === newUser.type);
@@ -136,18 +131,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     }, [webSocketAPI]);
     return (
         <div className="chats">
-            <div className="search">
-                <div className="col-1">
-                    <CreateRoom websocketapi={webSocketAPI}/>
-                </div>
-                <div className="searchForm col-11">
-                    <input className="col-8" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)}/>
-                    <input type="checkbox" onChange={handleCheckboxChange} title="Tìm kiếm phòng"/>   <JoinRoom websocketapi={webSocketAPI} title="Tham gia phòng"/>
-                    <button className="btn-search" onClick={handleAddUser} title="Tìm kiếm">
-                        <FiSearch className="userSearch"/>
-                    </button>
-                </div>
-            </div>
+           <Search webSocketAPI={webSocketAPI} handleCheckboxChange={handleCheckboxChange} handleAddUser={handleAddUser} newUserName={newUserName} setNewUserName={setNewUserName}/>
             {userList.map((user, index) => (
                 <div onClick={() => handleUserChatClick(user.name, user.type)} key={index}>
                     <UserChat id={index} name={user.name} type={user.type} actionTime={user.actionTime} userName={userName} />

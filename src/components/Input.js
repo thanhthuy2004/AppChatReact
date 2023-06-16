@@ -23,7 +23,8 @@ function Input({webSocketAPI, userName}) {
 
 
     const [imageUpload, setImageUpload] = useState(null);
-    const [urlImg, setUrlImg] = useState("");
+    const [url, setUrl] = useState("");
+    const [isVideo, setIsVideo] = useState(null);
 
 
 
@@ -35,20 +36,33 @@ function Input({webSocketAPI, userName}) {
     }
 
     // send img
-    const uploadFileImg = (event) => {
-        const file = event.target.files[0];
-        setImageUpload(file);
-        console.log(file)
+    const uploadFile = (event) => {
+        const file = event.target.files[0]; console.log(file)
         if (file === null) return;
-        const imageRef = ref(storage, `images/${file.name + v4()}`);
-        uploadBytes(imageRef, file).then((snapshot) => {
+        var maxSizeInBytes = 26214400; // Giới hạn kích thước file là 25MB
+        if (file.size > maxSizeInBytes) {
+            alert("Kích thước file vượt quá giới hạn cho phép.");
+
+            }
+            else{
+        setImageUpload(file);
+            let fileRef = "";
+            if(file.type.startsWith('image/')){
+                 fileRef = ref(storage, `images/${file.name + v4()}`);
+                 setIsVideo(false)
+            }else{
+                fileRef = ref(storage, `videos/${file.name + v4()}`);
+                setIsVideo(true)
+            }
+
+        uploadBytes(fileRef, file).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 // setImageUrls((prev) => [...prev, url]);
-                setUrlImg(url);
+                setUrl(url);
                 alert("Uploaded");
             });
         });
-        console.log(urlImg);
+        }
     };
 
     const handleChange = (newMessage) => {
@@ -91,8 +105,8 @@ function Input({webSocketAPI, userName}) {
         event.preventDefault();
 
         let  messEncode = "";
-        if (urlImg !== ""){
-            messEncode = urlImg;
+        if (url !== ""){
+            messEncode = url;
            mes = messEncode;
         }
         else if (urlAudio !== ""){
@@ -121,7 +135,7 @@ function Input({webSocketAPI, userName}) {
         webSocketAPI.send(data);
         setNewMessage("");
         setImageUpload("");
-        setUrlImg("");
+        setUrl("");
         setUrlAudio("");
 
         if(type === "people") {
@@ -179,7 +193,8 @@ function Input({webSocketAPI, userName}) {
         <form className="input" onSubmit={sendChat}>
             <div className="img_div">
                <div className="item_img">
-                   {urlImg !== "" && <img src={urlImg} alt=""/>}
+                   {url !== "" && !isVideo && <img src={url} alt=""/>}
+                   {url !== "" && isVideo && <video className="showVideo" src={url} alt=""/>}
                 </div>
             </div>
 
@@ -189,12 +204,12 @@ function Input({webSocketAPI, userName}) {
                 </div>
 
               <button className={isRecording?"micro-btn-active" :"micro-btn" } type="button" disabled={isLoading} onClick={record}>  <FaMicrophone/> </button>
-                <input type="file"  id="file"
+                <input type="file"  id="file" accept="image/*,video/*"
                        style={{ display: "none" }}
                        // onChange={(event) => {
                        //     setImageUpload(event.target.files[0]);
                        // }}
-                    onChange={uploadFileImg}
+                    onChange={uploadFile}
 
                 />
                 <label htmlFor="file">
@@ -210,4 +225,5 @@ function Input({webSocketAPI, userName}) {
         </form>
     );
 }
+
 export default Input;

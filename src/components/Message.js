@@ -25,6 +25,10 @@ function Message({id,name,type,to,mes}) {
         const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/record/g;
         return str.match(pattern);
     }
+    function isLinkVideo(str) {
+        const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/videos/g;
+        return str.match(pattern);
+    }
     // console.log(isLink("https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/images%2Fốp lưng.jpg31c30153-7c38-44df-9312-a8c68afea401?alt=media&token=33a45d1e-30c9-48f9-9f7b-168a4365401f"))
     return (
         <div className={classOwn}>
@@ -38,9 +42,10 @@ function Message({id,name,type,to,mes}) {
                 </div>
             </div>
             <div className="messageContent">
-                {!isLinkImg(mes) && !isLinkAudio(mes) && <p className="mess">{mes}</p>}
-                <img src={isLinkImg(mes) ? mes : ""} alt="" />
-                {isLinkAudio(mes) && <audio src={mes} alt="" controls id="audio" />}
+                {!isLinkImg(mes) && !isLinkAudio(mes) && !isLinkVideo(mes) && <p className="mess">{mes}</p>}
+                {isLinkImg(mes) && <img src={mes}  alt="" />}
+                {isLinkAudio(mes) && <audio src={mes} alt="" controls />}
+                {isLinkVideo(mes) && <video src={mes} controls alt=""/>}
                 {/*<a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
                 {/*<div className="web-review">*/}
                 {/*    <p className="mess">*/}

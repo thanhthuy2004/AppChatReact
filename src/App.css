@@ -594,3 +594,18 @@ input[type="checkbox"] {
 .modal-title{
   color:#7b96ec;
 }
+video{
+  max-width: 200px;
+  max-height: 360px;
+}
+.showVideo{
+  position: absolute;
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 3px;
+  top: -78px;
+  left: 28px;
+  margin-left: 12px;
+  color: #0ade2e;
+  font-size: 14px;
+}

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Attach from '../img/attach.png';
 import Img from '../img/img.png';
 import { FiSend } from "react-icons/fi";
 import InputEmoji from 'react-input-emoji';
@@ -24,7 +25,7 @@ function Input({webSocketAPI, userName}) {
 
     const [imageUpload, setImageUpload] = useState(null);
     const [url, setUrl] = useState("");
-    const [isVideo, setIsVideo] = useState(null);
+    const [fileType, setFileType] = useState(null);
 
 
 
@@ -49,10 +50,13 @@ function Input({webSocketAPI, userName}) {
             let fileRef = "";
             if(file.type.startsWith('image/')){
                  fileRef = ref(storage, `images/${file.name + v4()}`);
-                 setIsVideo(false)
-            }else{
+                setFileType("image");
+            }else if (file.type.startsWith('video/')){
                 fileRef = ref(storage, `videos/${file.name + v4()}`);
-                setIsVideo(true)
+                setFileType("video");
+            }else{
+                fileRef = ref(storage, `files/${file.name}`);
+                setFileType("other");
             }
 
         uploadBytes(fileRef, file).then((snapshot) => {
@@ -193,8 +197,8 @@ function Input({webSocketAPI, userName}) {
         <form className="input" onSubmit={sendChat}>
             <div className="img_div">
                <div className="item_img">
-                   {url !== "" && !isVideo && <img src={url} alt=""/>}
-                   {url !== "" && isVideo && <video className="showVideo" src={url} alt=""/>}
+                   {url !== "" && fileType==="image" && <img src={url} alt=""/>}
+                   {url !== "" && fileType==="video" && <video className="showVideo" src={url} alt=""/>}
                 </div>
             </div>
 
@@ -214,6 +218,13 @@ function Input({webSocketAPI, userName}) {
                 />
                 <label htmlFor="file">
                     <img src={Img} alt="" />
+                </label>
+                <input type="file"  id="fileOther"
+                       style={{ display: "none" }}
+                       onChange={uploadFile}
+                />
+                <label htmlFor="fileOther">
+                    <img src={Attach} alt="" />
                 </label>
                 <button id="submitButton" className="send-btn" type="submit">
                     <FiSend />

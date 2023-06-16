@@ -191,10 +191,7 @@ function Input({webSocketAPI, userName}) {
               <button className={isRecording?"micro-btn-active" :"micro-btn" } type="button" disabled={isLoading} onClick={record}>  <FaMicrophone/> </button>
                 <input type="file"  id="file"
                        style={{ display: "none" }}
-                       // onChange={(event) => {
-                       //     setImageUpload(event.target.files[0]);
-                       // }}
-                    onChange={uploadFileImg}
+                       onChange={uploadFileImg}
 
                 />
                 <label htmlFor="file">

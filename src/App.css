@@ -582,5 +582,15 @@ input[type="checkbox"] {
   margin-left: 12px;
   color: #0ade2e;
   font-size: 14px;
+}
+#submit{
+  background: #8da4f1;
+}
+.modal-body label{
+  color:  #5d5b8d;
+  font-weight: 500;
+}
 
+.modal-title{
+  color:#7b96ec;
 }

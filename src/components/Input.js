@@ -25,11 +25,6 @@ function Input({webSocketAPI, userName}) {
     const [imageUpload, setImageUpload] = useState(null);
     const [urlImg, setUrlImg] = useState("");
 
-
-
-
-
-
     if (!webSocketAPI) {
         return null;
     }
@@ -43,9 +38,8 @@ function Input({webSocketAPI, userName}) {
         const imageRef = ref(storage, `images/${file.name + v4()}`);
         uploadBytes(imageRef, file).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
-                // setImageUrls((prev) => [...prev, url]);
                 setUrlImg(url);
-                alert("Uploaded");
+                // alert("Uploaded");
             });
         });
         console.log(urlImg);

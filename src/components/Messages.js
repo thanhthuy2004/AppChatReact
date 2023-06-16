@@ -38,7 +38,7 @@ function Messages({webSocketAPI, userName, userType}) {
                 <Message key={message.id}
                          id={message.id} name={message.name}
                          type={message.type} to={message.to}
-                         // mes={message.mes}
+                         createAt={message.createAt}
                          mes={decodeURI(message.mes)
                          }
                 />

@@ -53,7 +53,7 @@ function MyhhVerticallyCenteredModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>Thoát</Button>
-                <Button variant="primary" onClick={createNewRoom}>Xong</Button>
+                <Button  id="submit"  onClick={createNewRoom}>Xong</Button>
             </Modal.Footer>
         </Modal>
     );

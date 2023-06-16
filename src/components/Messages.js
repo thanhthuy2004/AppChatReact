@@ -1,33 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import Message from "./Message";
+import {getDownloadURL, listAll, ref} from "firebase/storage";
+import {storage} from "../firebase";
 
 function Messages({webSocketAPI, userName, userType}) {
     const [messageList, setMessageList] = useState([]);
-    const getMessPeopleList = {
-        action: "onchat",
-        data: {
-            event: "GET_PEOPLE_CHAT_MES",
-            data: {
-                name: userName,
-                page: 1
-            }
-        }
-    }
-    const getMessRoomList = {
-        action: "onchat",
-        data: {
-            event: "GET_ROOM_CHAT_MES",
-            data: {
-                name: userName,
-                page: 1
-            }
-        }
-    }
-    if(userType === 0) {
-        webSocketAPI.send(getMessPeopleList);
-    }else if (userType === 1){
-        webSocketAPI.send(getMessRoomList);
-    }
+
     useEffect(() => {
         if (!webSocketAPI) {
             return;
@@ -37,9 +15,9 @@ function Messages({webSocketAPI, userName, userType}) {
             const message = JSON.parse(event.data);
 
             if(message.event === "GET_PEOPLE_CHAT_MES"){
-                const listMessagePeople = message.data;
+                let listMessagePeople  = message.data;
                 setMessageList(listMessagePeople);
-                // console.log(listMessagePeople.slice().reverse());
+                // console.log(listMessagePeople);
             }
             else if (message.event === "GET_ROOM_CHAT_MES") {
                 let listMessageRoom = [];
@@ -47,8 +25,11 @@ function Messages({webSocketAPI, userName, userType}) {
                     listMessageRoom = message.data.chatData;
                 }
                 setMessageList(listMessageRoom);
+                // console.log(listMessageRoom);
             }
         })
+
+
     }, [webSocketAPI]);
 
     return (
@@ -58,7 +39,8 @@ function Messages({webSocketAPI, userName, userType}) {
                          id={message.id} name={message.name}
                          type={message.type} to={message.to}
                          // mes={message.mes}
-                         mes={decodeURI(message.mes)}
+                         mes={decodeURI(message.mes)
+                         }
                 />
             ))}
 

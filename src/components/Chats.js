@@ -131,7 +131,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 const existingUserIndex = listUser.findIndex(user => user.name === newUserName && user.type === newUser.type);
                 if (existingUserIndex !== -1) {
                     // Nếu đã tồn tại và cùng type, xóa username cũ
-                     listUser.splice(existingUserIndex, 1);
+                    listUser.splice(existingUserIndex, 1);
                 }
 
                 // Đưa newUserName lên đầu danh sách
@@ -173,7 +173,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             </div>
             {userList.map((user, index) => (
                 <div onClick={() => handleUserChatClick(user.name, user.type)} key={index}>
-                        <UserChat id={index} name={user.name} type={user.type} actionTime={formatActionTime(user.actionTime)} userName={userName} />
+                    <UserChat id={index} name={user.name} type={user.type} actionTime={formatActionTime(user.actionTime)} userName={userName} />
                 </div>
             ))}
             <Modal className="ModalWarningRoom" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>

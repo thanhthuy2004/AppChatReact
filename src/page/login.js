@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {useNavigate , Link} from "react-router-dom";
 
 function Login({webSocketAPI, setIsLogin}) {
@@ -49,7 +49,7 @@ function Login({webSocketAPI, setIsLogin}) {
             }
         });
 
-    }, [webSocketAPI]);
+    }, [webSocketAPI,setIsLogin]);
     return (
         <div className="formContainer">
             <div className="formWrapper">

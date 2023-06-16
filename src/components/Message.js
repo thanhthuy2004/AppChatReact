@@ -1,21 +1,41 @@
-import React from 'react'
-function Message({id,name,type,to,mes}) {
+import React, { useState, useEffect } from 'react';
+
+function Message({ id, name, type, to, mes }) {
+    const [linkPreview, setLinkPreview] = useState(null);
     const user = localStorage.getItem('username');
-    const imgPersonal = "https://www.studytienganh.vn/upload/2022/05/112275.jpg";
-    let classOwn = "";
-    if(to === user || name !== user){
-        classOwn = "message";
-    }else if (to !== user || name === user){
-        classOwn = "message owner";
+    const imgPersonal = 'https://www.studytienganh.vn/upload/2022/05/112275.jpg';
+    let classOwn = '';
+    if (to === user || name !== user) {
+        classOwn = 'message';
+    } else if (to !== user || name === user) {
+        classOwn = 'message owner';
     }
-    let hours = new Date(Date.now()).getHours() >= 12 ? 'PM':'AM';
+    let hours = new Date(Date.now()).getHours() >= 12 ? 'PM' : 'AM';
     let month = new Date(Date.now()).getMonth() + 1;
-    let timer = new Date(Date.now()).getDate()+
-        "-"+ month+
-        "-"+ new Date(Date.now()).getFullYear()+
-        ", "+ new Date(Date.now()).getHours()+
-        ":"+ new Date(Date.now()).getMinutes()+
-        " "+ hours;
+    let timer =
+        new Date(Date.now()).getDate() +
+        '-' +
+        month +
+        '-' +
+        new Date(Date.now()).getFullYear() +
+        ', ' +
+        new Date(Date.now()).getHours() +
+        ':' +
+        new Date(Date.now()).getMinutes() +
+        ' ' +
+        hours;
+
+    useEffect(() => {
+        if (mes.startsWith('https://www')) {
+            fetch(
+                `https://opengraph.io/api/1.1/site/${encodeURIComponent(
+                    mes
+                )}?app_id=99aaba07-9913-4a0d-851c-17fa1d0c7cda`
+            )
+                .then((response) => response.json())
+                .then((data) => setLinkPreview(data));
+        }
+    }, [mes]);
 
     function isLinkImg(str) {
         const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/images/g;
@@ -25,39 +45,39 @@ function Message({id,name,type,to,mes}) {
         const pattern = /https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/nlu-chatapp\.appspot\.com\/o\/record/g;
         return str.match(pattern);
     }
-    // console.log(isLink("https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/images%2Fốp lưng.jpg31c30153-7c38-44df-9312-a8c68afea401?alt=media&token=33a45d1e-30c9-48f9-9f7b-168a4365401f"))
+
     return (
         <div className={classOwn}>
             <div className="messageInfo">
                 <div className="messageInfoDetail">
                     <span className="username">{name}</span>
                 </div>
-                <img src={imgPersonal} alt=""/>
-                <div className="timeMess">
-                    {timer}
-                </div>
+                <img src={imgPersonal} alt="" />
+                <div className="timeMess">{timer}</div>
             </div>
             <div className="messageContent">
-                {!isLinkImg(mes) && !isLinkAudio(mes) && <p className="mess">{mes}</p>}
-                <img src={isLinkImg(mes) ? mes : ""} alt="" />
-                {isLinkAudio(mes) && <audio src={mes} alt="" controls id="audio" />}
-                {/*<a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
-                {/*<div className="web-review">*/}
-                {/*    <p className="mess">*/}
-                {/*    <a href="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg">https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg</a>*/}
-                {/*</p>*/}
-                {/*    <img src="https://cdn.memevui.com/2022-05/30/meo-cuoi-nham-hiem.jpg" alt="" />*/}
-                {/*    <div className="container-title-wr">*/}
-                {/*    <span className="title-wr">Đây là title</span>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
+                {!isLinkImg(mes) && !isLinkAudio(mes) && !linkPreview && (
+                    <p className="mess">{mes}</p>
+                )}
+                <img src={isLinkImg(mes) ? mes : ''} alt="" />
+                {isLinkAudio(mes) && (
+                    <audio src={mes} alt="" controls id="audio" />
+                )}
+                {linkPreview && (
+                    <div className="web-review">
+                        <p className="mess-wr">
+                            <a href={linkPreview.hybridGraph.url}>
+                                {linkPreview.hybridGraph.url}
+                            </a>
+                        </p>
+                        <img src={linkPreview.hybridGraph.image} alt="" />
+                        <div className="container-title-wr">
+                            <span className="title-wr">{linkPreview.hybridGraph.title}</span>
+                        </div>
+                    </div>
+                )}
             </div>
-
-
         </div>
-
-
     );
 }
 

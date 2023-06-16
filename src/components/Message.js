@@ -87,10 +87,10 @@ function Message({ id, name, type, to, mes }) {
                 {isLinkAudio(mes) && <audio src={mes} alt="" controls />}
                 {isLinkVideo(mes) && <video src={mes} controls alt=""/>}
                 {isLinkFile(mes) && <button onClick={downloadFileFromFirebase}>{getFileNameFromFirebaseUrl(mes)}</button>}
-                {linkPreview && (
+                {linkPreview && linkPreview.hybridGraph && (
                     <div className="web-review">
                         <p className="mess-wr">
-                            <a href={linkPreview.hybridGraph.url}>
+                            <a target="_blank" href={linkPreview.hybridGraph.url}>
                                 {linkPreview.hybridGraph.url}
                             </a>
                         </p>

@@ -4,6 +4,7 @@ import Add from "../img/add.png";
 import More from "../img/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
+import ChatInfor from "./ChatInfor";
 
 function Chat({webSocketAPI, userName, userType}) {
 
@@ -14,7 +15,7 @@ function Chat({webSocketAPI, userName, userType}) {
                 <div className="chatIcons">
                     <img src={Cam} alt=""/>
                     <img src={Add} alt=""/>
-                    <img src={More} alt=""/>
+                    <ChatInfor webSocketAPI={webSocketAPI} userName={userName} userType={userType}/>
                 </div>
             </div>
 

@@ -17,7 +17,6 @@ function Messages({webSocketAPI, userName, userType}) {
             if(message.event === "GET_PEOPLE_CHAT_MES"){
                 let listMessagePeople  = message.data;
                 setMessageList(listMessagePeople);
-                // console.log(listMessagePeople);
             }
             else if (message.event === "GET_ROOM_CHAT_MES") {
                 let listMessageRoom = [];

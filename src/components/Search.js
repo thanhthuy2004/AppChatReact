@@ -19,17 +19,6 @@ function Search({webSocketAPI, handleCheckboxChange, handleAddUser, newUserName,
                 </button>
             </div>
         </div>
-        // <div className="search" >
-        //     <CreateRoom webSocketAPI={webSocketAPI}></CreateRoom>
-        //     <div className="searchForm">
-        //         <form>
-        //             <input type="text" placeholder="Tìm kiếm"/>
-        //             <button className="btn-search">
-        //                 <FiSearch />
-        //             </button>
-        //         </form>
-        //     </div>
-        // </div>
     );
 }
 

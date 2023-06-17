@@ -41,7 +41,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 if (span.innerHTML === newUser.name) {
                     const activeUserChat = span.closest('.userChat');
                     activeUserChat.classList.add('userChatActive');
-                    activeUserChat.scrollIntoView({ behavior: 'smooth' });
+                    activeUserChat.scrollIntoView({ behavior: 'smooth'});
                 }
             });
         } else if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {

@@ -126,9 +126,11 @@ input::placeholder{
   flex: 1;
   border-right: 1px solid #3e3c61;
   background-color: #3e3c61;
+  height: 100%;
 }
 .chat{
   flex: 2;
+  height: 100%;
 }
 .sidebar .navbar{
   display: flex;
@@ -174,9 +176,10 @@ input::placeholder{
   color: lightgray;
 }
 .sidebar .chats{
-  margin-top: 48px;
-  height: calc(100% - 80px);
+  /*margin-top: 48px;*/
+  height: 100%;
   overflow: scroll;
+  padding-bottom: 40px;
 }
 .userChat{
   padding: 10px;
@@ -322,9 +325,9 @@ input::placeholder{
   margin-top: 6px;
 }
 .chat .input{
-  height: 50px;
+  height: 65px;
   background-color: white;
-  padding: 10px;
+  padding: 0px 10px 20px 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -374,14 +377,14 @@ input::placeholder{
   margin-top: 10px;
   color: white;
 }
-.chats .search{
+.search{
   display: flex;
-  position: fixed;
+  border-bottom: 1px solid gray;
+  /*position: fixed;*/
   /*background-color: #5d5b8d;*/
   /*height: 50px;*/
-  top: 120px;
-  width: 299px;
-  border-bottom: 1px solid gray;
+  /*top: 120px;*/
+  /*width: 299px;*/
 }
 .btn-search{
   background-color: #5d5b8d;
@@ -433,7 +436,6 @@ input[type="checkbox"] {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  cursor: pointer
 }
 .chat-sender>div{
   height: 100%;
@@ -467,11 +469,12 @@ input[type="checkbox"] {
 .ModalInforChat{
   border-radius: 10px 0px 10px 10px;
   margin: 100px 10px 300px 700px;
-  height: 70%;
+  height: auto;
   overflow: auto;
 }
 .ReactModal__Overlay {
   background-color: transparent;
+  z-index: 1000;
 }
 .modal-title-warning {
   font-size: 24px;
@@ -573,7 +576,7 @@ input[type="checkbox"] {
   width: 50px;
   height: 50px;
   border-radius: 3px;
-  top: -48px;
+  top: -66px;
   left: 28px;
   margin-left: 12px;
   color: #0ade2e;

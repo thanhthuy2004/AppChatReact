@@ -12,6 +12,8 @@ import {listAll} from "firebase/storage";
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
     const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
+    const userName = localStorage.getItem("username");
+    const decodedReLoginCode = atob(reLoginCode);
     const [isLogin, setIsLogin] = useState(false);
 
 
@@ -31,30 +33,33 @@ function App() {
 
 
     // window.addEventListener('reload', () => {
-    //     // const socket = new WebSocketAPI();
-    //     // setWebSocketAPI(socket);
-    //     // const re_loginData = {
-    //     //     status: "success",
-    //     //     event: "RE_LOGIN",
-    //     //     data: {
-    //     //         RE_LOGIN_CODE: {reLoginCode}
-    //     //     }
-    //     // };
-    //     // webSocketAPI.send(re_loginData);
-    //     // webSocketAPI.on("message", function (event) {
-    //     //     const message = JSON.parse(event.data);
-    //     //     if (message.event === "RE_LOGIN") {
-    //     //         const listUser = message.data;
-    //     //         console.log(message);
-    //     //     }
-    //     // })
+    //     const socket = new WebSocketAPI();
+    //     setWebSocketAPI(socket);
+    //     const re_loginData = {
+    //     action: 'onchat',
+    //         data: {
+    //         event: "RE_LOGIN",
+    //             data: {
+    //             user: userName,
+    //                 code: decodedReLoginCode
+    //         }
+    //     }
+    // };
+    //
+    // webSocketAPI.send(re_loginData);
+    //     webSocketAPI.on("message", function (event) {
+    //         const message = JSON.parse(event.data);
+    //         if (message.event === "RE_LOGIN") {
+    //             console.log(message.data);
+    //         }
+    //     })
     //     console.log("reload nè");
     // });
 
     // chưa đăng nhập thì chuyển hướng sang trang login
     const ProtectedRoute = ({children}) => {
         if (!isLogin) {
-            return <Navigate to="/login" />
+            return <Navigate to="/" />
         }
         return children;
     }

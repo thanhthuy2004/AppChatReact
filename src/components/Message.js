@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function Message({ id, name, type, to, mes }) {
+    const APP_ID = "" //2a871409-8b80-4c11-9d99-d4c5bc4419a4
     const [linkPreview, setLinkPreview] = useState(null);
     const user = localStorage.getItem('username');
     const imgPersonal = 'https://www.studytienganh.vn/upload/2022/05/112275.jpg';
@@ -30,7 +31,7 @@ function Message({ id, name, type, to, mes }) {
             fetch(
                 `https://opengraph.io/api/1.1/site/${encodeURIComponent(
                     mes
-                )}?app_id=99aaba07-9913-4a0d-851c-17fa1d0c7cda`
+                )}?app_id=` + APP_ID
             )
                 .then((response) => response.json())
                 .then((data) => setLinkPreview(data));

@@ -82,10 +82,6 @@ function ChatInfor({webSocketAPI, userName, userType}) {
         );
     }
     const handleImageClick = () => {
-        console.log(listMess);
-        console.log(listInfor);
-        console.log(own);
-        console.log(listUserChatRoom);
         setModalOpen(true);
     }
     return(

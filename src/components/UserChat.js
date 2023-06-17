@@ -18,6 +18,7 @@ function UserChat({id, name, type, actionTime, userName}){
         <img src={type === 0 ? imgPersonal : imgRoom} alt=""/>
         <div className="userChatInfo">
             <span>{name}</span>
+            <span class="type_user" style={{ display: 'none' }}>{type}</span>
             <p>{formatActionTime(actionTime)}</p>
         </div>
     </div>

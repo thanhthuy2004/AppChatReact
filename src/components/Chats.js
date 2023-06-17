@@ -41,7 +41,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 if (span.innerHTML === newUser.name) {
                     const activeUserChat = span.closest('.userChat');
                     activeUserChat.classList.add('userChatActive');
-                    activeUserChat.scrollIntoView({ behavior: 'smooth' });
+                    activeUserChat.scrollIntoView({ behavior: 'smooth'});
                 }
             });
         } else if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
@@ -121,28 +121,6 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
             const message = JSON.parse(event.data);
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
-                const createdTime = new Date();
-                const newUser = {
-                    name: newUserName,
-                    type: typeUser,
-                    actionTime: formatActionTime(createdTime.getTime())
-                };
-                // Kiểm tra xem newUserName đã tồn tại trong danh sách hay chưa
-                const existingUserIndex = listUser.findIndex(user => user.name === newUserName && user.type === newUser.type);
-                if (existingUserIndex !== -1) {
-                    // Nếu đã tồn tại và cùng type, xóa username cũ
-                    listUser.splice(existingUserIndex, 1);
-                }
-
-                // Đưa newUserName lên đầu danh sách
-                listUser.unshift(newUser);
-                const listRoom = listUser.filter(item => item.type === 1);
-                setRoomList(listRoom);
-                if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
-                    // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
-                    setModalIsOpen(true);
-                    return;
-                }
                 setUserList(prevList => {
                     const newList = [...prevList];
                     listUser.forEach(user => {

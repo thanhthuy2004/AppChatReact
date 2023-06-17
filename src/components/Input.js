@@ -42,7 +42,7 @@ function Input({webSocketAPI, userName}) {
                 // alert("Uploaded");
             });
         });
-        console.log(urlImg);
+        // console.log(urlImg);
     };
 
     const handleChange = (newMessage) => {

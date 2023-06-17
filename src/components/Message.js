@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 function Message({ id, name, type, to, mes , createAt}) {
     const [linkPreview, setLinkPreview] = useState(null);
     const user = localStorage.getItem('username');
@@ -42,6 +43,7 @@ function Message({ id, name, type, to, mes , createAt}) {
         return str.match(pattern);
     }
 
+
     return (
         <div className={classOwn}>
             <div className="messageInfo">
@@ -72,6 +74,7 @@ function Message({ id, name, type, to, mes , createAt}) {
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );

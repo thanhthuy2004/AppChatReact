@@ -91,7 +91,7 @@ function ChatInfor({webSocketAPI, userName, userType}) {
     return(
         <>
     <img src={More} onClick={handleImageClick} alt=""/>
-            <Modal className="ModalInforChat" isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
+            <Modal className="ModalInforChat" isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} aria-labelledby="contained-modal-title-vcenter">
                 <div className="modal-close" onClick={() => setModalOpen(false)}><MdClose/></div>
                 <h2 className="modal-title-infor">Thông tin</h2>
                 <div className="containerimg">

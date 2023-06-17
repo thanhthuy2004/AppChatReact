@@ -1,11 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Cam from "../img/cam.png";
 import Add from "../img/add.png";
-import More from "../img/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
 import ChatInfor from "./ChatInfor";
-
 function Chat({webSocketAPI, userName, userType}) {
 
     return (
@@ -13,7 +11,9 @@ function Chat({webSocketAPI, userName, userType}) {
             <div className="chatInfo">
                 <span>{userName}</span>
                 <div className="chatIcons">
-                    <img src={Cam} alt=""/>
+
+                    <img src={Cam} alt="" />
+
                     <img src={Add} alt=""/>
                     <ChatInfor webSocketAPI={webSocketAPI} userName={userName} userType={userType}/>
                 </div>

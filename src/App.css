@@ -469,11 +469,12 @@ input[type="checkbox"] {
 .ModalInforChat{
   border-radius: 10px 0px 10px 10px;
   margin: 100px 10px 300px 700px;
-  height: 70%;
+  height: auto;
   overflow: auto;
 }
 .ReactModal__Overlay {
   background-color: transparent;
+  z-index: 1000;
 }
 .modal-title-warning {
   font-size: 24px;

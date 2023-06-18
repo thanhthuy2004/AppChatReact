@@ -87,7 +87,7 @@ function ChatInfor({webSocketAPI, userName, userType}) {
     return(
         <>
     <img src={More} onClick={handleImageClick} alt=""/>
-            <Modal className="ModalInforChat" isOpen={modalOpen} onRequestClose={() => setModalOpen(false)}>
+            <Modal className="ModalInforChat" isOpen={modalOpen} onRequestClose={() => setModalOpen(false)} aria-labelledby="contained-modal-title-vcenter">
                 <div className="modal-close" onClick={() => setModalOpen(false)}><MdClose/></div>
                 <h2 className="modal-title-infor">Thông tin</h2>
                 <div className="containerimg">
@@ -111,7 +111,7 @@ function ChatInfor({webSocketAPI, userName, userType}) {
                     .filter((item) => isFirebaseURL(item.mes))
                     .map((item) => (
                         <div key={item.id}  className="cover-link">
-                        <a className="ml-20 listURLInfor" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} target="_blank" href={item.mes}>{item.mes}</a>
+                        <a className="ml-20 listURLInfor" target="_blank" href={item.mes}>{item.mes}</a>
                         </div>
                     ))}
                 {userType === 1 && (

@@ -27,11 +27,6 @@ function Input({webSocketAPI, userName}) {
     const [url, setUrl] = useState("");
     const [fileType, setFileType] = useState(null);
 
-
-
-
-
-
     if (!webSocketAPI) {
         return null;
     }

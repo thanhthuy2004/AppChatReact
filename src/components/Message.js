@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
-function Message({ id, name, type, to, mes }) {
-    const APP_ID = "" //2a871409-8b80-4c11-9d99-d4c5bc4419a4
+
+function Message({ id, name, type, to, mes , createAt}) {
+    const APP_ID = "2a871409-8b80-4c11-9d99-d4c5bc4419a4";
     const [linkPreview, setLinkPreview] = useState(null);
     const user = localStorage.getItem('username');
     const imgPersonal = 'https://www.studytienganh.vn/upload/2022/05/112275.jpg';
@@ -12,21 +13,17 @@ function Message({ id, name, type, to, mes }) {
     } else if (to !== user || name === user) {
         classOwn = 'message owner';
     }
-    let hours = new Date(Date.now()).getHours() >= 12 ? 'PM' : 'AM';
-    let month = new Date(Date.now()).getMonth() + 1;
-    let timer =
-        new Date(Date.now()).getDate() +
-        '-' +
-        month +
-        '-' +
-        new Date(Date.now()).getFullYear() +
-        ', ' +
-        new Date(Date.now()).getHours() +
-        ':' +
-        new Date(Date.now()).getMinutes() +
-        ' ' +
-        hours;
 
+    function formatActionTime(actionTime) {
+        const date = new Date(actionTime);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        const seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+    }
     useEffect(() => {
         if (mes.startsWith('https://www')) {
             fetch(
@@ -79,7 +76,7 @@ function Message({ id, name, type, to, mes }) {
                     <span className="username">{name}</span>
                 </div>
                 <img src={imgPersonal} alt="" />
-                <div className="timeMess">{timer}</div>
+                <div className="timeMess">{formatActionTime(createAt)}</div>
             </div>
             <div className="messageContent">
 
@@ -96,11 +93,12 @@ function Message({ id, name, type, to, mes }) {
                             </a>
                         </p>
                         <img src={linkPreview.hybridGraph.image} alt="" />
-                        <div className="container-title-wr">
-                            <span className="title-wr">{linkPreview.hybridGraph.title}</span>
+                        <div className="container-title-wr" >
+                            <span style={{display:"inline-block"}} className="title-wr">{linkPreview.hybridGraph.title}</span>
                         </div>
                     </div>
                 )}
+
             </div>
         </div>
     );

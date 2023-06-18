@@ -22,7 +22,7 @@ function Login({webSocketAPI, setIsLogin}) {
             },
         };
         webSocketAPI.send(loginData);
-
+        sessionStorage.setItem("isLogin", 'true');
         localStorage.setItem("username",username);
     };
     useEffect(() => {
@@ -48,7 +48,6 @@ function Login({webSocketAPI, setIsLogin}) {
                 localStorage.setItem("RE_LOGIN_CODE", encodedValue);
             }
         });
-
     }, [webSocketAPI,setIsLogin]);
     return (
         <div className="formContainer">

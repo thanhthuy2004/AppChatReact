@@ -5,7 +5,7 @@ import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
 import JoinRoom from "./JoinRoom";
 import Modal from 'react-modal';
-function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
+function Chats({webSocketAPI, setUserName, userName, setUserType, userType, reLogin}) {
     const [userList, setUserList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
@@ -125,11 +125,11 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         if (!webSocketAPI) {
             return;
         }
-
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
+                // console.log(listUser)
                 setUserList(prevList => {
                     const newList = [...prevList];
                     listUser.forEach(user => {
@@ -141,7 +141,6 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 });
             }
         })
-
 
     }, [webSocketAPI]);
     return (

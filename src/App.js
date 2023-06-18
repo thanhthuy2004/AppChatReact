@@ -11,67 +11,84 @@ import {listAll} from "firebase/storage";
 
 function App() {
     const [webSocketAPI, setWebSocketAPI] = useState(null);
-    const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
     const [isLogin, setIsLogin] = useState(false);
-
+    // define reLogin function
+    const reLogin = (webSocketAPI) => {
+        if (!webSocketAPI || webSocketAPI.socket.readyState !== WebSocket.OPEN) {
+            return;
+        }
+        const username = localStorage.getItem("username");
+        const encodedValue = localStorage.getItem("RE_LOGIN_CODE");
+        if (username && encodedValue) {
+            const reLoginCode = window.atob(encodedValue);
+            const reLoginData = {
+                action: "onchat",
+                data: {
+                    event: "RE_LOGIN",
+                    data: {
+                        user: username,
+                        code: reLoginCode,
+                    },
+                },
+            };
+            webSocketAPI.send(reLoginData);
+        }
+    };
 
     // create socket
     useEffect(() => {
         Modal.setAppElement('#root');
         const socket = new WebSocketAPI();
         setWebSocketAPI(socket);
+        const isLogined = sessionStorage.getItem("isLogin");
+        if (isLogined) {
+            setIsLogin(isLogined);
+        }
     }, []);
-    // useEffect(() => {
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-    //
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //     };
-    // }, []);
 
-
-    // window.addEventListener('reload', () => {
-    //     // const socket = new WebSocketAPI();
-    //     // setWebSocketAPI(socket);
-    //     // const re_loginData = {
-    //     //     status: "success",
-    //     //     event: "RE_LOGIN",
-    //     //     data: {
-    //     //         RE_LOGIN_CODE: {reLoginCode}
-    //     //     }
-    //     // };
-    //     // webSocketAPI.send(re_loginData);
-    //     // webSocketAPI.on("message", function (event) {
-    //     //     const message = JSON.parse(event.data);
-    //     //     if (message.event === "RE_LOGIN") {
-    //     //         const listUser = message.data;
-    //     //         console.log(message);
-    //     //     }
-    //     // })
-    //     console.log("reload nè");
-    // });
+    useEffect(() => {
+        if (!webSocketAPI) {
+            return;
+        }
+        // call reLogin function
+        reLogin(webSocketAPI);
+        webSocketAPI.socket.onopen = () => reLogin(webSocketAPI);
+        webSocketAPI.on("message", function (event) {
+            const message = JSON.parse(event.data);
+            if(message.event === "RE_LOGIN") {
+                if (message.status === "success") {
+                    setIsLogin(true);
+                }
+            }
+            if (message.data && message.data.RE_LOGIN_CODE) {
+                const encodedValue = window.btoa(message.data.RE_LOGIN_CODE);
+                localStorage.setItem("RE_LOGIN_CODE", encodedValue);
+            }
+        });
+    }, [webSocketAPI]);
 
     // chưa đăng nhập thì chuyển hướng sang trang login
     const ProtectedRoute = ({children}) => {
         if (!isLogin) {
-            return <Navigate to="/login" />
+            return <Navigate to="/" />
         }
         return children;
     }
-    return (
 
+    return (
         <BrowserRouter>
             <Routes>
                 <Route path="/">
                     <Route index element={
                         <ProtectedRoute>
-                            <Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI} setIsLogin={setIsLogin}/>
+                            {/* pass reLogin function as prop */}
+                            <Home webSocketAPI={webSocketAPI} setWebSocketAPI={setWebSocketAPI} setIsLogin={setIsLogin} reLogin={reLogin}/>
                         </ProtectedRoute>
                     }/>
                     <Route path='login' element={
                         <Login
-                        webSocketAPI={webSocketAPI}
-                        setIsLogin={setIsLogin}/>}
+                            webSocketAPI={webSocketAPI}
+                            setIsLogin={setIsLogin}/>}
                     />
                     <Route path='register' element={<Register webSocketAPI={webSocketAPI}/>} />
                 </Route>
@@ -81,3 +98,4 @@ function App() {
 }
 
 export default App;
+

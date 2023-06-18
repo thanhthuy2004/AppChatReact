@@ -4,34 +4,13 @@ import Chat from "../components/Chat";
 import "../App.css"
 import WebSocketAPI from '../store/WebSocketAPI'
 
-function Home({webSocketAPI, setWebSocketAPI, setIsLogin}) {
-
-    // const username = localStorage.getItem("username");
-
-    // useEffect(() => {
-    //     if (!webSocketAPI) {
-    //         return;
-    //     }
-    // webSocketAPI.on("message", function (event) {
-    //     console.log("WebSocket message received:", event.data);
-    //     const message = JSON.parse(event.data);
-    //
-    //     // Kiểm tra xem có thuộc tính data.RE_LOGIN_CODE trong tin nhắn không
-    //     if (message.data && message.data.RE_LOGIN_CODE) {
-    //         // Lưu giá trị RE_LOGIN_CODE vào localStorage
-    //         localStorage.setItem("RE_LOGIN_CODE", message.data.RE_LOGIN_CODE);
-    //     }
-    // });
-
-    // return () => {
-    //     socket.close();
-    // };
-    // }, [webSocketAPI]);
-
-
+function Home({webSocketAPI, setWebSocketAPI, setIsLogin, reLogin}) {
+    const reLoginCode = localStorage.getItem("RE_LOGIN_CODE");
+    const getUserName = localStorage.getItem("username");
+    const decodedReLoginCode = atob(reLoginCode);
     const [userName, setUserName] = useState('');
     const [userType, setUserType] = useState(0);
-
+    reLogin(webSocketAPI);
     return (
         <div className="home">
             <div className="container1">
@@ -43,6 +22,7 @@ function Home({webSocketAPI, setWebSocketAPI, setIsLogin}) {
                     setUserType={setUserType}
                     userType={userType}
                     setIsLogin={setIsLogin}
+                    reLogin={reLogin}
                 />
                 <Chat
                     webSocketAPI={webSocketAPI}

@@ -82,10 +82,6 @@ function ChatInfor({webSocketAPI, userName, userType}) {
         );
     }
     const handleImageClick = () => {
-        console.log(listMess);
-        console.log(listInfor);
-        console.log(own);
-        console.log(listUserChatRoom);
         setModalOpen(true);
     }
     return(
@@ -115,7 +111,7 @@ function ChatInfor({webSocketAPI, userName, userType}) {
                     .filter((item) => isFirebaseURL(item.mes))
                     .map((item) => (
                         <div key={item.id}  className="cover-link">
-                        <a className="ml-20 listURLInfor" style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}} target="_blank" href={item.mes}>{item.mes}</a>
+                        <a className="ml-20 listURLInfor" target="_blank" href={item.mes}>{item.mes}</a>
                         </div>
                     ))}
                 {userType === 1 && (

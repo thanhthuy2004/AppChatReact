@@ -5,7 +5,7 @@ import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
 import JoinRoom from "./JoinRoom";
 import Modal from 'react-modal';
-function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
+function Chats({webSocketAPI, setUserName, userName, setUserType, userType, reLogin}) {
     const [userList, setUserList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");
@@ -37,13 +37,22 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 userChat.classList.remove('userChatActive');
             });
             const existingUserSpans = document.querySelectorAll('.userChat span:not(.userChatInfo)');
+            let userFound = false;
             existingUserSpans.forEach((span) => {
-                if (span.innerHTML === newUser.name) {
+                const typeSpan = span.closest('.userChat').querySelector('.type_user');
+                if (span.innerHTML === newUser.name && typeSpan.innerHTML === newUser.type.toString()) {
+                    userFound = true;
                     const activeUserChat = span.closest('.userChat');
                     activeUserChat.classList.add('userChatActive');
-                    activeUserChat.scrollIntoView({ behavior: 'smooth'});
+                    const divElement = document.querySelector('.chats');
+                    const divInto = document.querySelector('.userChatActive');
+                    divElement.scrollTop= divInto.offsetTop - divElement.offsetTop;
                 }
             });
+            if (!userFound) {
+                const divElement = document.querySelector('.chats');
+                divElement.scrollTop = 0;
+            }
         } else if (typeUser === 1 && !roomList.some(room => room.name === newUserName)) {
             // Kiểm tra nếu type là 1 (phòng chat) và newUserName không nằm trong roomList, hiển thị thông báo lỗi
             setModalIsOpen(true);
@@ -116,11 +125,11 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
         if (!webSocketAPI) {
             return;
         }
-
         webSocketAPI.on("message", function (event) {
             const message = JSON.parse(event.data);
             if (message.event === "GET_USER_LIST") {
                 const listUser = message.data;
+                // console.log(listUser)
                 setUserList(prevList => {
                     const newList = [...prevList];
                     listUser.forEach(user => {
@@ -132,7 +141,6 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
                 });
             }
         })
-
 
     }, [webSocketAPI]);
     return (

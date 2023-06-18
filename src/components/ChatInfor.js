@@ -71,15 +71,30 @@ function ChatInfor({webSocketAPI, userName, userType}) {
             'https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/images'
         );
     }
+    function isFirebaseVideoURL(url) {
+        return url.startsWith(
+            'https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/videos'
+        );
+    }
     function isFirebaseAudioURL(url) {
         return url.startsWith(
             'https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/record'
+        );
+    }
+    function isFirebaseFileURL(url) {
+        return url.startsWith(
+            'https://firebasestorage.googleapis.com/v0/b/nlu-chatapp.appspot.com/o/files'
         );
     }
     function isFirebaseURL(url) {
         return url.startsWith(
             'https://www'
         );
+    }
+    function getFileNameFromURL(url) {
+        const parts = url.split('/');
+        const fileName = parts[parts.length - 1].split('%2F')[1].split('?')[0];
+        return decodeURIComponent(fileName);
     }
     const handleImageClick = () => {
         setModalOpen(true);
@@ -100,11 +115,27 @@ function ChatInfor({webSocketAPI, userName, userType}) {
                     .map((item) => (
                         <img className="listImgInfor" key={item.id}  src={item.mes} alt="" />
                     ))}
+                <p className="ml-20">Thước phim:</p>
+                {listMess
+                    .filter((item) => isFirebaseVideoURL(item.mes))
+                    .map((item) => (
+                        <video className="listViInfor" key={item.id} src={item.mes} controls>
+                            Your browser does not support the video tag.
+                        </video>
+                    ))}
                 <p className="ml-20">Âm thanh:</p>
                 {listMess
                     .filter((item) => isFirebaseAudioURL(item.mes))
                     .map((item) => (
                     <audio className="listAudioInfor" key={item.id} src={item.mes} controls id="audio" />
+                    ))}
+                <p className="ml-20">Tệp:</p>
+                {listMess
+                    .filter((item) => isFirebaseFileURL(item.mes))
+                    .map((item) => (
+                        <div key={item.id}  className="cover-file">
+                            <a className="ml-20 listFileInfor" target="_blank" href={item.mes}>{getFileNameFromURL(item.mes)}</a>
+                        </div>
                     ))}
                 <p className="ml-20">Liên kết:</p>
                 {listMess

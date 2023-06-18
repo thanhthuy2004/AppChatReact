@@ -147,7 +147,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType, reLo
         <div className="chats">
             <div className="search">
                 <div className="col-1">
-                    <CreateRoom websocketapi={webSocketAPI}/>
+                    <CreateRoom websocketapi={webSocketAPI} title="Tạo phòng"  userlist={userList} setuserlist={setUserList}/>
                 </div>
                 <div className="searchForm col-11">
                     <input className="col-8" type="text" placeholder="Tìm kiếm" value={newUserName} onChange={e => setNewUserName(e.target.value)} required={true}/>

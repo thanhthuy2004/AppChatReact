@@ -493,6 +493,7 @@ input[type="checkbox"] {
   color: #5cb85c;
 }
 .modal-title-infor{
+  padding-top: 10px;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
@@ -650,13 +651,19 @@ video{
   color: black;
 }
 .listImgInfor{
-  width: 80px;
-  height: 80px;
+  width: 75px;
+  height: 70px;
+  margin: 10px;
+}
+.listViInfor{
+  width: 170px;
+  height: 100px;
   margin: 10px;
 }
 .listAudioInfor{
-  width: 200px;
+  width: 180px;
   height: 30px;
+  margin: 5px;
 }
 .cover-link{
   display: inline-block;
@@ -669,10 +676,24 @@ video{
 .listURLInfor{
   display: inline-block;
   margin-left: 10px;
-
   font-size: 12px;
 }
-
+.cover-file{
+  background-color: rgba(182, 175, 201, 0.32);
+  display: inline-block;
+  width: 375px;
+  overflow:hidden;
+  margin: 3px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+.listFileInfor{
+  font-weight: bolder;
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
 .message.owner .messageContent button{
   padding: 10px 20px;
   background-color: #8da4f1;

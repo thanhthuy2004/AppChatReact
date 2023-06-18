@@ -42,7 +42,9 @@ function ModalJoinRoom(props) {
                         if (span.innerHTML === newRoom.name) {
                             const activeUserChat = span.closest('.userChat');
                             activeUserChat.classList.add('userChatActive');
-                            activeUserChat.scrollIntoView({ behavior: 'smooth' });
+                            const divElement = document.querySelector('.chats');
+                            const divInto = document.querySelector('.userChatActive');
+                            divElement.scrollTop= divInto.offsetTop - divElement.offsetTop;
                         }
                     });
                 } else {

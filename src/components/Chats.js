@@ -5,7 +5,7 @@ import CreateRoom from "./CreateRoom";
 import { FiSearch} from "react-icons/fi";
 import JoinRoom from "./JoinRoom";
 import Modal from 'react-modal';
-function Chats({webSocketAPI, setUserName, userName, setUserType, userType, reLogin}) {
+function Chats({webSocketAPI, setUserName, userName, setUserType, userType}) {
     const [userList, setUserList] = useState([]);
     const [roomList, setRoomList] = useState([]);
     const [newUserName, setNewUserName] = useState("");

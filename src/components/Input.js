@@ -33,7 +33,7 @@ function Input({webSocketAPI, userName}) {
 
     // send img
     const uploadFile = (event) => {
-        const file = event.target.files[0]; console.log(file)
+        const file = event.target.files[0];
         if (file === null) return;
         var maxSizeInBytes = 26214400; // Giới hạn kích thước file là 25MB
         if (file.size > maxSizeInBytes) {
@@ -197,7 +197,7 @@ function Input({webSocketAPI, userName}) {
                 </div>
             </div>
 
-            <div className="send">
+            <div className="send" >
                 <div className="chat-sender">
                     <InputEmoji id="mess" value={newMessage} onChange={handleChange} placeholder="Aa"/>
                 </div>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 
 function Message({ id, name, type, to, mes , createAt}) {
+    // const APP_ID = "5ef19a17-4766-449c-88ca-9beb4841f7fc";
     const APP_ID = "2a871409-8b80-4c11-9d99-d4c5bc4419a4";
     const [linkPreview, setLinkPreview] = useState(null);
     const user = localStorage.getItem('username');

@@ -6,7 +6,7 @@ import { AiOutlineUsergroupAdd} from "react-icons/ai";
 
 
 function MyhhVerticallyCenteredModal(props) {
-    const { websocketapi } = props;
+    const { websocketapi, userlist, setuserlist } = props;
     const [roomName, setRoomName] = useState('');
 
     const createNewRoom = () => {
@@ -26,6 +26,12 @@ function MyhhVerticallyCenteredModal(props) {
                 showError();
             }
             if(mess.event === "CREATE_ROOM" && mess.status === "success"){
+                const newRoom = {
+                    name: roomName,
+                    type: 1,
+                    actionTime: new Date().toLocaleString()
+                };
+                setuserlist([newRoom, ...userlist]);
                 props.onHide();
                 setRoomName("");
             }
@@ -59,7 +65,7 @@ function MyhhVerticallyCenteredModal(props) {
     );
 }
 
-function CreateRoom({ websocketapi }) {
+function CreateRoom({ websocketapi, title, userlist, setuserlist }) {
     const [modalShow, setModalShow] = React.useState(false);
 
     return (
@@ -73,6 +79,8 @@ function CreateRoom({ websocketapi }) {
 
             <MyhhVerticallyCenteredModal
                 websocketapi={websocketapi}
+                userlist = {userlist}
+                setuserlist={setuserlist}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />

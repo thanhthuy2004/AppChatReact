@@ -48,7 +48,6 @@ function ModalJoinRoom(props) {
                         }
                     });
                 } else {
-
                     setuserlist([newRoom, ...userlist]);
                 }
                 props.onHide();

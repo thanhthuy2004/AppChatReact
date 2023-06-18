@@ -70,7 +70,7 @@ function CreateRoom({ websocketapi, title, userlist, setuserlist }) {
 
     return (
         <>
-            <AiOutlineUsergroupAdd
+            <AiOutlineUsergroupAdd title = {title}
                 className="create-room"
                 size={28}
                 onClick={() => setModalShow(true)}

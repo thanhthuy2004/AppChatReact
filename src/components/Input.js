@@ -58,7 +58,7 @@ function Input({webSocketAPI, userName}) {
             getDownloadURL(snapshot.ref).then((url) => {
                 // setImageUrls((prev) => [...prev, url]);
                 setUrl(url);
-                alert("Uploaded");
+                alert("Tải tệp lên thành công!");
             });
         });
         }

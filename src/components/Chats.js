@@ -164,7 +164,7 @@ function Chats({webSocketAPI, setUserName, userName, setUserType, userType, reLo
             ))}
             <Modal className="ModalWarningRoom" isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                 <h2 className="modal-title-warning">Thông báo</h2>
-                <p className="modal-message">Bạn chưa tham gia hoặc phòng này chưa được tạo!</p>
+                <p className="modal-message">Bạn chưa tham gia hoặc phòng/người dùng     này chưa được tạo!</p>
                 <button className="modal-button" onClick={() => setModalIsOpen(false)}>OK</button>
             </Modal>
         </div>

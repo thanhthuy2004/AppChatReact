@@ -17,12 +17,15 @@ hỗ trợ gửi tin nhắn, gửi emoji, gửi ảnh, gửi video,... để tr�
 2. Công Nghệ Sử Dụng
    
 2.1. Frontend
+
     - ReactJs, Bootstrap: Để xây dựng giao diện người dùng.
     
 2.2. Backend
+
     - API WebSocket NLU
     - FireBase: để lưu trữ hình ảnh, video, file, vì những chức năng này API không hỗ trợ
     
 3. Hướng dẫn thực thi code
+
     - Cài Nodejs
     - Download source code và run trong VS Code hoặc WebStorm,...
